@@ -1,0 +1,3088 @@
+{
+  "dataset_id": "retail_b2c_bpm4_synthetic_v1_csv",
+  "title_ru": "Ритейл: учебный датасет БПМ4",
+  "data_status_ru": "Полностью синтетические учебные данные",
+  "company_ru": "Учебная сеть Лавка красоты",
+  "team": "T12",
+  "analysis_period": [
+    "2024-01-01",
+    "2025-12-31"
+  ],
+  "history_start": "2023-07-01",
+  "cutoff": "2025-12-31",
+  "calendar_start": "2017-01-01",
+  "calendar_end": "2026-12-31",
+  "prepared_date": "2026-10-08",
+  "seed": 20261012,
+  "csv_contract": {
+    "encoding": "UTF-8 with BOM",
+    "delimiter": ";",
+    "decimal_separator": ".",
+    "null_value": "",
+    "boolean_values": [
+      "true",
+      "false"
+    ],
+    "date_format": "YYYY-MM-DD",
+    "datetime_format": "YYYY-MM-DDTHH:MM:SS, local time",
+    "currency": "RUB",
+    "tax_basis_ru": "Без НДС"
+  },
+  "tables": [
+    {
+      "table_name": "Calendar",
+      "file": "data/Calendar.csv",
+      "row_count": 3652,
+      "primary_key": [
+        "date"
+      ],
+      "grain_ru": "Один календарный день",
+      "columns": [
+        {
+          "name": "date",
+          "label": "Дата",
+          "meaning": "День с 01.01.2017 по 31.12.2026: справочные даты (открытие магазинов, регистрация карт), история с 01.07.2023, анализ 2024-2025, сроки оплат и сгорания баллов после среза.",
+          "type": "date",
+          "ref": "",
+          "unit": "",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "year",
+          "label": "Год",
+          "meaning": "Календарный год.",
+          "type": "integer",
+          "ref": "",
+          "unit": "",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "quarter",
+          "label": "Квартал",
+          "meaning": "Номер квартала от 1 до 4.",
+          "type": "integer",
+          "ref": "",
+          "unit": "",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "month_number",
+          "label": "Месяц",
+          "meaning": "Номер месяца от 1 до 12.",
+          "type": "integer",
+          "ref": "",
+          "unit": "",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "month_name",
+          "label": "Название месяца",
+          "meaning": "Русское название месяца.",
+          "type": "text",
+          "ref": "",
+          "unit": "",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "iso_week",
+          "label": "Неделя ISO",
+          "meaning": "Номер недели по ISO 8601.",
+          "type": "integer",
+          "ref": "",
+          "unit": "",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "weekday_number",
+          "label": "Номер дня недели",
+          "meaning": "1 = понедельник, 7 = воскресенье.",
+          "type": "integer",
+          "ref": "",
+          "unit": "",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "weekday_name",
+          "label": "День недели",
+          "meaning": "Русское название дня недели.",
+          "type": "text",
+          "ref": "",
+          "unit": "",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "is_weekend",
+          "label": "Выходной",
+          "meaning": "Суббота или воскресенье.",
+          "type": "boolean",
+          "ref": "",
+          "unit": "",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "is_holiday",
+          "label": "Праздник",
+          "meaning": "1, 2 и 7 января, 23 февраля, 8 марта, 1 и 9 мая, 12 июня, 4 ноября. 1 января все магазины закрыты.",
+          "type": "boolean",
+          "ref": "",
+          "unit": "",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "is_analysis_period",
+          "label": "Период анализа",
+          "meaning": "true для дат 01.01.2024-31.12.2025.",
+          "type": "boolean",
+          "ref": "",
+          "unit": "",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        }
+      ]
+    },
+    {
+      "table_name": "Stores",
+      "file": "data/Stores.csv",
+      "row_count": 8,
+      "primary_key": [
+        "store_id"
+      ],
+      "grain_ru": "Один магазин или офис",
+      "columns": [
+        {
+          "name": "store_id",
+          "label": "ID магазина",
+          "meaning": "Уникальный код. S00 = офис и распределительный центр без продаж.",
+          "type": "text",
+          "ref": "Stores",
+          "unit": "",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "store_name",
+          "label": "Название",
+          "meaning": "Вымышленное название.",
+          "type": "text",
+          "ref": "",
+          "unit": "",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "city",
+          "label": "Город",
+          "meaning": "Москва или Казань.",
+          "type": "text",
+          "ref": "",
+          "unit": "",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "format_name",
+          "label": "Формат",
+          "meaning": "Флагман, спальный район, центр города, торговый центр или офис.",
+          "type": "text",
+          "ref": "",
+          "unit": "",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "area_sqm",
+          "label": "Торговая площадь",
+          "meaning": "Площадь торгового зала; 0 у офиса.",
+          "type": "integer",
+          "ref": "",
+          "unit": "кв. м",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "open_date",
+          "label": "Дата открытия",
+          "meaning": "Первый день продаж. S07 открыт 14.09.2024 вместо S03, S05 открыт 12.04.2025 рядом с S02. Пусто у офиса.",
+          "type": "date",
+          "ref": "",
+          "unit": "",
+          "nullable": true,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "close_date",
+          "label": "Дата закрытия",
+          "meaning": "Последний день продаж. S03 закрыт 31.08.2024 (переезд в S07). Пусто, если работает.",
+          "type": "date",
+          "ref": "",
+          "unit": "",
+          "nullable": true,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "predecessor_store_id",
+          "label": "ID магазина",
+          "meaning": "Магазин, который заменил этот магазин при переезде. Для S07 это S03.",
+          "type": "text",
+          "ref": "Stores",
+          "unit": "",
+          "nullable": true,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "is_store",
+          "label": "Магазин",
+          "meaning": "false у офиса S00.",
+          "type": "boolean",
+          "ref": "",
+          "unit": "",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        }
+      ]
+    },
+    {
+      "table_name": "Store_Hours",
+      "file": "data/Store_Hours.csv",
+      "row_count": 49,
+      "primary_key": [
+        "store_id",
+        "weekday_number"
+      ],
+      "grain_ru": "Один магазин и один день недели",
+      "columns": [
+        {
+          "name": "store_id",
+          "label": "ID магазина",
+          "meaning": "Магазин, к которому относится запись.",
+          "type": "text",
+          "ref": "Stores",
+          "unit": "",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "weekday_number",
+          "label": "Номер дня недели",
+          "meaning": "1 = понедельник, 7 = воскресенье.",
+          "type": "integer",
+          "ref": "",
+          "unit": "",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "open_hour",
+          "label": "Открытие",
+          "meaning": "Час открытия, местное время.",
+          "type": "integer",
+          "ref": "",
+          "unit": "час",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "close_hour",
+          "label": "Закрытие",
+          "meaning": "Час закрытия; чеки до этого часа.",
+          "type": "integer",
+          "ref": "",
+          "unit": "час",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        }
+      ]
+    },
+    {
+      "table_name": "Channels",
+      "file": "data/Channels.csv",
+      "row_count": 2,
+      "primary_key": [
+        "channel_id"
+      ],
+      "grain_ru": "Один канал",
+      "columns": [
+        {
+          "name": "channel_id",
+          "label": "ID канала",
+          "meaning": "CH01 покупка в магазине, CH02 онлайн-заказ с самовывозом.",
+          "type": "text",
+          "ref": "",
+          "unit": "",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "channel_name",
+          "label": "Канал",
+          "meaning": "Название канала.",
+          "type": "text",
+          "ref": "",
+          "unit": "",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "receipt_channel",
+          "label": "Значение в чеке",
+          "meaning": "Значение поля Receipts.channel для этого канала.",
+          "type": "text",
+          "ref": "",
+          "unit": "",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        }
+      ]
+    },
+    {
+      "table_name": "Categories",
+      "file": "data/Categories.csv",
+      "row_count": 31,
+      "primary_key": [
+        "category_id"
+      ],
+      "grain_ru": "Одна категория второго уровня",
+      "columns": [
+        {
+          "name": "category_id",
+          "label": "ID категории",
+          "meaning": "Уникальный код.",
+          "type": "text",
+          "ref": "",
+          "unit": "",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "category_l1",
+          "label": "Группа",
+          "meaning": "Категория первого уровня: уход за лицом, волосы, декоративная косметика, бытовая химия и другие.",
+          "type": "text",
+          "ref": "",
+          "unit": "",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "category_l2",
+          "label": "Категория",
+          "meaning": "Категория второго уровня.",
+          "type": "text",
+          "ref": "",
+          "unit": "",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        }
+      ]
+    },
+    {
+      "table_name": "Suppliers",
+      "file": "data/Suppliers.csv",
+      "row_count": 13,
+      "primary_key": [
+        "supplier_id"
+      ],
+      "grain_ru": "Один поставщик",
+      "columns": [
+        {
+          "name": "supplier_id",
+          "label": "ID поставщика",
+          "meaning": "Уникальный код.",
+          "type": "text",
+          "ref": "",
+          "unit": "",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "supplier_name",
+          "label": "Поставщик",
+          "meaning": "Вымышленное название. V13 производит собственную марку.",
+          "type": "text",
+          "ref": "",
+          "unit": "",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "payment_terms_days",
+          "label": "Отсрочка платежа",
+          "meaning": "Дней от поставки до срока оплаты.",
+          "type": "integer",
+          "ref": "",
+          "unit": "день",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "retro_rate",
+          "label": "Ретро-бонус",
+          "meaning": "Доля закупок, которую поставщик возвращает ретро-бонусом.",
+          "type": "ratio",
+          "ref": "",
+          "unit": "доля",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        }
+      ]
+    },
+    {
+      "table_name": "Products",
+      "file": "data/Products.csv",
+      "row_count": 1021,
+      "primary_key": [
+        "sku_id"
+      ],
+      "grain_ru": "Один товар (SKU)",
+      "columns": [
+        {
+          "name": "sku_id",
+          "label": "ID товара",
+          "meaning": "Уникальный код товара.",
+          "type": "text",
+          "ref": "Products",
+          "unit": "",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "sku_name",
+          "label": "Название",
+          "meaning": "Вымышленное название.",
+          "type": "text",
+          "ref": "",
+          "unit": "",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "category_id",
+          "label": "ID категории",
+          "meaning": "Категория второго уровня.",
+          "type": "text",
+          "ref": "Categories",
+          "unit": "",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "brand",
+          "label": "Бренд",
+          "meaning": "Вымышленный бренд. «Своя полка» = собственная марка сети.",
+          "type": "text",
+          "ref": "",
+          "unit": "",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "is_private_label",
+          "label": "Собственная марка",
+          "meaning": "true для товаров «Своя полка», запуск 03.03.2025.",
+          "type": "boolean",
+          "ref": "",
+          "unit": "",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "supplier_id",
+          "label": "ID поставщика",
+          "meaning": "Поставщик товара.",
+          "type": "text",
+          "ref": "Suppliers",
+          "unit": "",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "launch_date",
+          "label": "Дата запуска",
+          "meaning": "Первый день продаж нового товара; пусто, если товар продавался до истории.",
+          "type": "date",
+          "ref": "",
+          "unit": "",
+          "nullable": true,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "delist_date",
+          "label": "Дата вывода",
+          "meaning": "Последний день продаж; пусто, если товар в ассортименте.",
+          "type": "date",
+          "ref": "",
+          "unit": "",
+          "nullable": true,
+          "rule": "Исходное поле синтетической модели"
+        }
+      ]
+    },
+    {
+      "table_name": "Price_List",
+      "file": "data/Price_List.csv",
+      "row_count": 3063,
+      "primary_key": [
+        "price_id"
+      ],
+      "grain_ru": "Одна цена товара за период",
+      "columns": [
+        {
+          "name": "price_id",
+          "label": "ID цены",
+          "meaning": "Уникальный код.",
+          "type": "text",
+          "ref": "",
+          "unit": "",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "sku_id",
+          "label": "ID товара",
+          "meaning": "Товар (SKU) из справочника Products.",
+          "type": "text",
+          "ref": "Products",
+          "unit": "",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "valid_from",
+          "label": "Действует с",
+          "meaning": "Начало действия. Переоценки 01.03.2024 и 01.03.2025.",
+          "type": "date",
+          "ref": "",
+          "unit": "",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "valid_to",
+          "label": "Действует по",
+          "meaning": "Пусто для действующей цены.",
+          "type": "date",
+          "ref": "",
+          "unit": "",
+          "nullable": true,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "regular_price",
+          "label": "Цена",
+          "meaning": "Регулярная цена за штуку до скидок, без НДС. Одинакова во всех магазинах и в онлайн-заказах.",
+          "type": "money",
+          "ref": "",
+          "unit": "рубль",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        }
+      ]
+    },
+    {
+      "table_name": "Product_Costs",
+      "file": "data/Product_Costs.csv",
+      "row_count": 30630,
+      "primary_key": [
+        "sku_id",
+        "period"
+      ],
+      "grain_ru": "Один товар и один месяц",
+      "columns": [
+        {
+          "name": "sku_id",
+          "label": "ID товара",
+          "meaning": "Товар (SKU) из справочника Products.",
+          "type": "text",
+          "ref": "Products",
+          "unit": "",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "period",
+          "label": "Месяц",
+          "meaning": "Первый день месяца.",
+          "type": "date",
+          "ref": "Calendar",
+          "unit": "",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "unit_cost",
+          "label": "Закупочная цена",
+          "meaning": "Себестоимость единицы в этом месяце. Используется в строках чеков, поставках и оценке остатков.",
+          "type": "money",
+          "ref": "",
+          "unit": "рубль",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        }
+      ]
+    },
+    {
+      "table_name": "Promotions",
+      "file": "data/Promotions.csv",
+      "row_count": 66,
+      "primary_key": [
+        "promo_id"
+      ],
+      "grain_ru": "Одна акция",
+      "columns": [
+        {
+          "name": "promo_id",
+          "label": "ID акции",
+          "meaning": "Уникальный код.",
+          "type": "text",
+          "ref": "",
+          "unit": "",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "promo_name",
+          "label": "Название",
+          "meaning": "Номер волны, механика и группы товаров.",
+          "type": "text",
+          "ref": "",
+          "unit": "",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "mechanic",
+          "label": "Механика",
+          "meaning": "Скидка 20%, Скидка 30% или 1+1 (вторая единица бесплатно).",
+          "type": "text",
+          "ref": "",
+          "unit": "",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "discount_rate",
+          "label": "Глубина",
+          "meaning": "Доля скидки от регулярной цены; для 1+1 равна 0,5 на пару.",
+          "type": "ratio",
+          "ref": "",
+          "unit": "доля",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "start_date",
+          "label": "Начало",
+          "meaning": "Первый день акции.",
+          "type": "date",
+          "ref": "",
+          "unit": "",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "end_date",
+          "label": "Окончание",
+          "meaning": "Последний день акции.",
+          "type": "date",
+          "ref": "",
+          "unit": "",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "supplier_funding_rate",
+          "label": "Компенсация поставщика",
+          "meaning": "Доля промо-скидки, которую поставщик возвращает в Supplier_Bonuses. Собственная марка в акциях не участвует.",
+          "type": "ratio",
+          "ref": "",
+          "unit": "доля",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        }
+      ]
+    },
+    {
+      "table_name": "Promo_Items",
+      "file": "data/Promo_Items.csv",
+      "row_count": 6784,
+      "primary_key": [
+        "promo_item_id"
+      ],
+      "grain_ru": "Один товар в одной акции",
+      "columns": [
+        {
+          "name": "promo_item_id",
+          "label": "ID строки",
+          "meaning": "Уникальный код.",
+          "type": "text",
+          "ref": "",
+          "unit": "",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "promo_id",
+          "label": "ID акции",
+          "meaning": "Акция, в которой участвует товар.",
+          "type": "text",
+          "ref": "Promotions",
+          "unit": "",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "sku_id",
+          "label": "ID товара",
+          "meaning": "Товар, участвующий в акции.",
+          "type": "text",
+          "ref": "Products",
+          "unit": "",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        }
+      ]
+    },
+    {
+      "table_name": "Customers",
+      "file": "data/Customers.csv",
+      "row_count": 27271,
+      "primary_key": [
+        "customer_id"
+      ],
+      "grain_ru": "Одна карта лояльности, включая карты без покупок",
+      "columns": [
+        {
+          "name": "customer_id",
+          "label": "ID карты",
+          "meaning": "Обезличенный код карты.",
+          "type": "text",
+          "ref": "",
+          "unit": "",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "registration_date",
+          "label": "Дата регистрации",
+          "meaning": "Вступление в программу лояльности. Не равна первой покупке.",
+          "type": "date",
+          "ref": "",
+          "unit": "",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "registration_store_id",
+          "label": "ID магазина",
+          "meaning": "Магазин регистрации.",
+          "type": "text",
+          "ref": "Stores",
+          "unit": "",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "registration_source",
+          "label": "Источник",
+          "meaning": "Касса, сайт или онлайн-заказ. Часть зарегистрированных на сайте не покупала.",
+          "type": "text",
+          "ref": "",
+          "unit": "",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "gender",
+          "label": "Пол",
+          "meaning": "Указан покупателем.",
+          "type": "text",
+          "ref": "",
+          "unit": "",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "birth_year",
+          "label": "Год рождения",
+          "meaning": "Указан покупателем.",
+          "type": "integer",
+          "ref": "",
+          "unit": "",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "consent_marketing",
+          "label": "Согласие на рассылку",
+          "meaning": "Согласие на маркетинговые сообщения.",
+          "type": "boolean",
+          "ref": "",
+          "unit": "",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "is_employee",
+          "label": "Сотрудник",
+          "meaning": "Карта сотрудника: скидка 20% на неакционные товары, баллы не начисляются. Исключайте из B2C-аналитики.",
+          "type": "boolean",
+          "ref": "",
+          "unit": "",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "customer_key_status",
+          "label": "Статус ключа",
+          "meaning": "Основная карта или Дубль карты. Дубль принадлежит тому же человеку, что master_customer_id.",
+          "type": "text",
+          "ref": "",
+          "unit": "",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "master_customer_id",
+          "label": "ID основной карты",
+          "meaning": "Для дублей: основная карта того же покупателя. Объединяйте покупки дубля с основной картой до RFM и когорт.",
+          "type": "text",
+          "ref": "Customers",
+          "unit": "",
+          "nullable": true,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "crm_first_purchase_date",
+          "label": "Первая покупка по CRM",
+          "meaning": "Истинная первая покупка покупателя по данным CRM, может быть раньше 01.07.2023. Пусто у дублей и карт без покупок.",
+          "type": "date",
+          "ref": "",
+          "unit": "",
+          "nullable": true,
+          "rule": "Исходное поле синтетической модели"
+        }
+      ]
+    },
+    {
+      "table_name": "Partner_Registry",
+      "file": "data/Partner_Registry.csv",
+      "row_count": 26,
+      "primary_key": [
+        "partner_id"
+      ],
+      "grain_ru": "Одна партнерская карта",
+      "columns": [
+        {
+          "name": "partner_id",
+          "label": "ID партнера",
+          "meaning": "Уникальный код.",
+          "type": "text",
+          "ref": "",
+          "unit": "",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "customer_id",
+          "label": "ID карты покупателя",
+          "meaning": "Карта, которой пользуется партнер.",
+          "type": "text",
+          "ref": "Customers",
+          "unit": "",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "partner_name",
+          "label": "Партнер",
+          "meaning": "Вымышленное название.",
+          "type": "text",
+          "ref": "",
+          "unit": "",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "partner_type",
+          "label": "Тип",
+          "meaning": "Салоны красоты покупают товары для работы. Это закупка для бизнеса, а не B2C.",
+          "type": "text",
+          "ref": "",
+          "unit": "",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "valid_from",
+          "label": "Партнер с",
+          "meaning": "Дата включения в реестр.",
+          "type": "date",
+          "ref": "",
+          "unit": "",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        }
+      ]
+    },
+    {
+      "table_name": "Receipts",
+      "file": "data/Receipts.csv",
+      "row_count": 477252,
+      "primary_key": [
+        "receipt_id"
+      ],
+      "grain_ru": "Один чек продажи",
+      "columns": [
+        {
+          "name": "receipt_id",
+          "label": "ID чека",
+          "meaning": "Уникальный код.",
+          "type": "text",
+          "ref": "",
+          "unit": "",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "store_id",
+          "label": "ID магазина",
+          "meaning": "Магазин, к которому относится запись.",
+          "type": "text",
+          "ref": "Stores",
+          "unit": "",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "receipt_datetime",
+          "label": "Дата и время",
+          "meaning": "Время пробития чека, местное время. Для онлайн-заказа это выдача, а не оформление.",
+          "type": "datetime",
+          "ref": "",
+          "unit": "",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "channel",
+          "label": "Канал",
+          "meaning": "Магазин или Онлайн-заказ.",
+          "type": "text",
+          "ref": "",
+          "unit": "",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "online_order_id",
+          "label": "ID онлайн-заказа",
+          "meaning": "Онлайн-заказ, по которому выдан товар; пусто для покупки в магазине.",
+          "type": "text",
+          "ref": "Online_Orders",
+          "unit": "",
+          "nullable": true,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "customer_id",
+          "label": "ID карты покупателя",
+          "meaning": "Карта покупателя; пусто для анонимного чека.",
+          "type": "text",
+          "ref": "Customers",
+          "unit": "",
+          "nullable": true,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "payment_method",
+          "label": "Способ оплаты",
+          "meaning": "Банковская карта, СБП или наличные.",
+          "type": "text",
+          "ref": "",
+          "unit": "",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "gross_amount",
+          "label": "Сумма по прайсу",
+          "meaning": "Сумма строк по регулярной цене.",
+          "type": "money",
+          "ref": "",
+          "unit": "рубль",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "promo_discount",
+          "label": "Промо-скидка",
+          "meaning": "Скидки по акциям.",
+          "type": "money",
+          "ref": "",
+          "unit": "рубль",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "employee_discount",
+          "label": "Скидка сотрудника",
+          "meaning": "Скидка по карте сотрудника.",
+          "type": "money",
+          "ref": "",
+          "unit": "рубль",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "points_redeemed",
+          "label": "Оплачено баллами",
+          "meaning": "Баллы, списанные в оплату (1 балл = 1 рубль). Это скидка: выручку уменьшает.",
+          "type": "money",
+          "ref": "",
+          "unit": "рубль",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "net_amount",
+          "label": "Сумма чека",
+          "meaning": "Выручка чека и деньги, полученные от покупателя.",
+          "type": "money",
+          "ref": "",
+          "unit": "рубль",
+          "nullable": false,
+          "rule": "gross_amount - promo_discount - employee_discount - points_redeemed"
+        },
+        {
+          "name": "points_accrued",
+          "label": "Начислено баллов",
+          "meaning": "Баллы, начисленные за чек: 5% от суммы чека до 01.06.2025, 3% после.",
+          "type": "integer",
+          "ref": "",
+          "unit": "балл",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "is_test",
+          "label": "Тестовый чек",
+          "meaning": "Тестовый чек кассы, аннулирован. Исключайте из выручки и всей аналитики.",
+          "type": "boolean",
+          "ref": "",
+          "unit": "",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "is_employee",
+          "label": "Покупка сотрудника",
+          "meaning": "Выручка, но не B2C-аналитика.",
+          "type": "boolean",
+          "ref": "",
+          "unit": "",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "is_b2b_or_partner",
+          "label": "Покупка партнера",
+          "meaning": "Карта из Partner_Registry. Выручка, но не B2C-аналитика.",
+          "type": "boolean",
+          "ref": "",
+          "unit": "",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        }
+      ]
+    },
+    {
+      "table_name": "Receipt_Lines",
+      "file": "data/Receipt_Lines.csv",
+      "row_count": 880289,
+      "primary_key": [
+        "receipt_line_id"
+      ],
+      "grain_ru": "Одна позиция чека",
+      "columns": [
+        {
+          "name": "receipt_line_id",
+          "label": "ID строки",
+          "meaning": "Уникальный код.",
+          "type": "text",
+          "ref": "",
+          "unit": "",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "receipt_id",
+          "label": "ID чека",
+          "meaning": "Чек, к которому относится строка.",
+          "type": "text",
+          "ref": "Receipts",
+          "unit": "",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "sku_id",
+          "label": "ID товара",
+          "meaning": "Товар (SKU) из справочника Products.",
+          "type": "text",
+          "ref": "Products",
+          "unit": "",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "quantity",
+          "label": "Количество",
+          "meaning": "Проданные штуки.",
+          "type": "integer",
+          "ref": "",
+          "unit": "штука",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "unit_price",
+          "label": "Цена",
+          "meaning": "Регулярная цена на дату продажи (для онлайн-заказа на дату оформления).",
+          "type": "money",
+          "ref": "",
+          "unit": "рубль",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "gross_amount",
+          "label": "Сумма по прайсу",
+          "meaning": "Количество x цена.",
+          "type": "money",
+          "ref": "",
+          "unit": "рубль",
+          "nullable": false,
+          "rule": "quantity * unit_price"
+        },
+        {
+          "name": "promo_id",
+          "label": "ID акции",
+          "meaning": "Акция строки; пусто без акции.",
+          "type": "text",
+          "ref": "Promotions",
+          "unit": "",
+          "nullable": true,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "promo_discount",
+          "label": "Промо-скидка",
+          "meaning": "Скидка 20% или 30% от суммы; для 1+1 цена каждой второй единицы.",
+          "type": "money",
+          "ref": "",
+          "unit": "рубль",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "employee_discount",
+          "label": "Скидка сотрудника",
+          "meaning": "20% от суммы неакционной строки по карте сотрудника.",
+          "type": "money",
+          "ref": "",
+          "unit": "рубль",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "points_redeemed",
+          "label": "Оплачено баллами",
+          "meaning": "Часть баллов чека, распределенная пропорционально сумме строк.",
+          "type": "money",
+          "ref": "",
+          "unit": "рубль",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "net_amount",
+          "label": "Выручка строки",
+          "meaning": "Сумма строки после всех скидок и баллов.",
+          "type": "money",
+          "ref": "",
+          "unit": "рубль",
+          "nullable": false,
+          "rule": "gross_amount - promo_discount - employee_discount - points_redeemed"
+        },
+        {
+          "name": "unit_cost",
+          "label": "Себестоимость единицы",
+          "meaning": "Product_Costs.unit_cost месяца продажи; 0 у тестовых чеков.",
+          "type": "money",
+          "ref": "",
+          "unit": "рубль",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "cost_amount",
+          "label": "Себестоимость",
+          "meaning": "Количество x себестоимость единицы.",
+          "type": "money",
+          "ref": "",
+          "unit": "рубль",
+          "nullable": false,
+          "rule": "quantity * unit_cost"
+        }
+      ]
+    },
+    {
+      "table_name": "Online_Orders",
+      "file": "data/Online_Orders.csv",
+      "row_count": 14223,
+      "primary_key": [
+        "online_order_id"
+      ],
+      "grain_ru": "Один онлайн-заказ",
+      "columns": [
+        {
+          "name": "online_order_id",
+          "label": "ID заказа",
+          "meaning": "Уникальный код.",
+          "type": "text",
+          "ref": "",
+          "unit": "",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "customer_id",
+          "label": "ID карты покупателя",
+          "meaning": "Карта покупателя; онлайн-заказ возможен только с картой.",
+          "type": "text",
+          "ref": "Customers",
+          "unit": "",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "order_datetime",
+          "label": "Оформлен",
+          "meaning": "Дата и время оформления на сайте.",
+          "type": "datetime",
+          "ref": "",
+          "unit": "",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "pickup_store_id",
+          "label": "ID магазина",
+          "meaning": "Магазин выдачи.",
+          "type": "text",
+          "ref": "Stores",
+          "unit": "",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "ready_date",
+          "label": "Собран",
+          "meaning": "День сборки в магазине (следующий рабочий день). Пусто, если заказ отменен до сборки.",
+          "type": "date",
+          "ref": "",
+          "unit": "",
+          "nullable": true,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "pickup_date",
+          "label": "Выдан",
+          "meaning": "День выдачи покупателю; пусто, если не выдан.",
+          "type": "date",
+          "ref": "",
+          "unit": "",
+          "nullable": true,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "order_status",
+          "label": "Статус",
+          "meaning": "Выдан, Выдан частично, Отменен, Не выкуплен.",
+          "type": "text",
+          "ref": "",
+          "unit": "",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        }
+      ]
+    },
+    {
+      "table_name": "Online_Order_Lines",
+      "file": "data/Online_Order_Lines.csv",
+      "row_count": 55824,
+      "primary_key": [
+        "online_order_line_id"
+      ],
+      "grain_ru": "Одна товарная строка онлайн-заказа",
+      "columns": [
+        {
+          "name": "online_order_line_id",
+          "label": "ID строки",
+          "meaning": "Уникальный код.",
+          "type": "text",
+          "ref": "",
+          "unit": "",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "online_order_id",
+          "label": "ID заказа",
+          "meaning": "Заказ, к которому относится строка.",
+          "type": "text",
+          "ref": "Online_Orders",
+          "unit": "",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "sku_id",
+          "label": "ID товара",
+          "meaning": "Товар (SKU) из справочника Products.",
+          "type": "text",
+          "ref": "Products",
+          "unit": "",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "ordered_qty",
+          "label": "Заказано",
+          "meaning": "Заказанные штуки.",
+          "type": "integer",
+          "ref": "",
+          "unit": "штука",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "fulfilled_qty",
+          "label": "Выдано",
+          "meaning": "Выданные штуки; равны количеству в чеке выдачи.",
+          "type": "integer",
+          "ref": "",
+          "unit": "штука",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "cancelled_qty",
+          "label": "Отменено",
+          "meaning": "Заказано, но не выдано.",
+          "type": "integer",
+          "ref": "",
+          "unit": "штука",
+          "nullable": false,
+          "rule": "ordered_qty - fulfilled_qty"
+        },
+        {
+          "name": "cancel_reason",
+          "label": "Причина отмены",
+          "meaning": "Нет в наличии (при сборке), Отмена покупателем, Не выкуплен, Магазин закрыт (S03 при переезде). Пусто без отмены. Дефицит определяйте только по «Нет в наличии».",
+          "type": "text",
+          "ref": "",
+          "unit": "",
+          "nullable": true,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "pending_qty",
+          "label": "Ожидает",
+          "meaning": "Заказы на срез, еще не собранные или не выданные.",
+          "type": "integer",
+          "ref": "",
+          "unit": "штука",
+          "nullable": false,
+          "rule": "ordered_qty - fulfilled_qty - cancelled_qty"
+        },
+        {
+          "name": "unit_price",
+          "label": "Цена",
+          "meaning": "Регулярная цена на дату оформления.",
+          "type": "money",
+          "ref": "",
+          "unit": "рубль",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        }
+      ]
+    },
+    {
+      "table_name": "Returns",
+      "file": "data/Returns.csv",
+      "row_count": 7847,
+      "primary_key": [
+        "return_id"
+      ],
+      "grain_ru": "Одна позиция возврата",
+      "columns": [
+        {
+          "name": "return_id",
+          "label": "ID возврата",
+          "meaning": "Уникальный код.",
+          "type": "text",
+          "ref": "",
+          "unit": "",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "receipt_line_id",
+          "label": "ID строки чека",
+          "meaning": "Исходная строка продажи.",
+          "type": "text",
+          "ref": "Receipt_Lines",
+          "unit": "",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "receipt_id",
+          "label": "ID чека",
+          "meaning": "Исходный чек продажи.",
+          "type": "text",
+          "ref": "Receipts",
+          "unit": "",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "store_id",
+          "label": "ID магазина",
+          "meaning": "Магазин, принявший возврат; после закрытия S03 возвраты принимает S07.",
+          "type": "text",
+          "ref": "Stores",
+          "unit": "",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "return_datetime",
+          "label": "Дата и время",
+          "meaning": "Время возврата, местное время.",
+          "type": "datetime",
+          "ref": "",
+          "unit": "",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "sku_id",
+          "label": "ID товара",
+          "meaning": "Товар (SKU) из справочника Products.",
+          "type": "text",
+          "ref": "Products",
+          "unit": "",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "quantity",
+          "label": "Количество",
+          "meaning": "Возвращенные штуки.",
+          "type": "integer",
+          "ref": "",
+          "unit": "штука",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "return_reason",
+          "label": "Причина",
+          "meaning": "Не подошел, брак, аллергическая реакция.",
+          "type": "text",
+          "ref": "",
+          "unit": "",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "is_restocked",
+          "label": "Возвращен в продажу",
+          "meaning": "true, если товар не вскрыт и вернулся в остаток.",
+          "type": "boolean",
+          "ref": "",
+          "unit": "",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "refund_amount",
+          "label": "Возвращено денег",
+          "meaning": "Деньги покупателю; уменьшает выручку в дату возврата.",
+          "type": "money",
+          "ref": "",
+          "unit": "рубль",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "refund_method",
+          "label": "Способ возврата",
+          "meaning": "Тем же способом, что и оплата.",
+          "type": "text",
+          "ref": "",
+          "unit": "",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "points_returned",
+          "label": "Возвращено баллов",
+          "meaning": "Баллы, которыми была оплачена возвращенная часть.",
+          "type": "integer",
+          "ref": "",
+          "unit": "балл",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "points_reversed",
+          "label": "Отменено начисление",
+          "meaning": "Баллы за возвращенную часть, списанные обратно (не больше остатка на карте).",
+          "type": "integer",
+          "ref": "",
+          "unit": "балл",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "cost_reversal",
+          "label": "Сторно себестоимости",
+          "meaning": "Себестоимость товара, вернувшегося в продажу; 0, если товар списан.",
+          "type": "money",
+          "ref": "",
+          "unit": "рубль",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        }
+      ]
+    },
+    {
+      "table_name": "Loyalty_Events",
+      "file": "data/Loyalty_Events.csv",
+      "row_count": 367625,
+      "primary_key": [
+        "event_id"
+      ],
+      "grain_ru": "Одно изменение баланса баллов одной карты",
+      "columns": [
+        {
+          "name": "event_id",
+          "label": "ID события",
+          "meaning": "Уникальный код.",
+          "type": "text",
+          "ref": "",
+          "unit": "",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "customer_id",
+          "label": "ID карты покупателя",
+          "meaning": "Карта, баланс которой меняется.",
+          "type": "text",
+          "ref": "Customers",
+          "unit": "",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "event_datetime",
+          "label": "Дата и время",
+          "meaning": "Дата и время события.",
+          "type": "datetime",
+          "ref": "",
+          "unit": "",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "event_type",
+          "label": "Тип события",
+          "meaning": "Начальный остаток, Начисление, Списание при оплате, Сгорание, Возврат баллов при возврате товара, Отмена начисления при возврате. Типы не смешивайте.",
+          "type": "text",
+          "ref": "",
+          "unit": "",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "points",
+          "label": "Баллы",
+          "meaning": "Плюс = начисление, минус = списание. Сумма по карте = баланс.",
+          "type": "integer",
+          "ref": "",
+          "unit": "балл",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "receipt_id",
+          "label": "ID чека",
+          "meaning": "Чек начисления или списания.",
+          "type": "text",
+          "ref": "Receipts",
+          "unit": "",
+          "nullable": true,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "return_id",
+          "label": "ID возврата",
+          "meaning": "Возврат для корректировок.",
+          "type": "text",
+          "ref": "Returns",
+          "unit": "",
+          "nullable": true,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "expiry_date",
+          "label": "Сгорают",
+          "meaning": "Для начислений: дата сгорания. Баллы, начисленные до 01.06.2025, живут 365 дней, после 183 дня.",
+          "type": "date",
+          "ref": "",
+          "unit": "",
+          "nullable": true,
+          "rule": "Исходное поле синтетической модели"
+        }
+      ]
+    },
+    {
+      "table_name": "Supplier_Deliveries",
+      "file": "data/Supplier_Deliveries.csv",
+      "row_count": 8463,
+      "primary_key": [
+        "delivery_id"
+      ],
+      "grain_ru": "Одна поставка одного поставщика в один магазин",
+      "columns": [
+        {
+          "name": "delivery_id",
+          "label": "ID поставки",
+          "meaning": "Уникальный код.",
+          "type": "text",
+          "ref": "",
+          "unit": "",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "supplier_id",
+          "label": "ID поставщика",
+          "meaning": "Поставщик из справочника Suppliers.",
+          "type": "text",
+          "ref": "Suppliers",
+          "unit": "",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "store_id",
+          "label": "ID магазина",
+          "meaning": "Магазин получения (через распределительный центр).",
+          "type": "text",
+          "ref": "Stores",
+          "unit": "",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "order_date",
+          "label": "Дата заказа",
+          "meaning": "Еженедельный заказ: Москва по понедельникам, Казань по вторникам.",
+          "type": "date",
+          "ref": "",
+          "unit": "",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "delivery_date",
+          "label": "Дата поставки",
+          "meaning": "Товар доступен к продаже с этой даты.",
+          "type": "date",
+          "ref": "",
+          "unit": "",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "ordered_qty",
+          "label": "Заказано",
+          "meaning": "Штуки в заказе поставщику.",
+          "type": "integer",
+          "ref": "",
+          "unit": "штука",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "delivered_qty",
+          "label": "Поставлено",
+          "meaning": "Фактически поставленные штуки. Разница с заказом = недопоставка поставщика.",
+          "type": "integer",
+          "ref": "",
+          "unit": "штука",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "amount",
+          "label": "Сумма",
+          "meaning": "Поставленные штуки x закупочная цена месяца поставки.",
+          "type": "money",
+          "ref": "",
+          "unit": "рубль",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "due_date",
+          "label": "Срок оплаты",
+          "meaning": "Дата поставки + отсрочка поставщика.",
+          "type": "date",
+          "ref": "",
+          "unit": "",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        }
+      ]
+    },
+    {
+      "table_name": "Supplier_Payments",
+      "file": "data/Supplier_Payments.csv",
+      "row_count": 7982,
+      "primary_key": [
+        "supplier_payment_id"
+      ],
+      "grain_ru": "Одна оплата одной поставки",
+      "columns": [
+        {
+          "name": "supplier_payment_id",
+          "label": "ID оплаты",
+          "meaning": "Уникальный код.",
+          "type": "text",
+          "ref": "",
+          "unit": "",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "delivery_id",
+          "label": "ID поставки",
+          "meaning": "Оплаченная поставка.",
+          "type": "text",
+          "ref": "Supplier_Deliveries",
+          "unit": "",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "supplier_id",
+          "label": "ID поставщика",
+          "meaning": "Поставщик из справочника Suppliers.",
+          "type": "text",
+          "ref": "Suppliers",
+          "unit": "",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "payment_date",
+          "label": "Дата оплаты",
+          "meaning": "Оплата в срок или с задержкой до 5 дней. Оплаты после среза не входят.",
+          "type": "date",
+          "ref": "",
+          "unit": "",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "amount",
+          "label": "Сумма",
+          "meaning": "Сумма поставки.",
+          "type": "money",
+          "ref": "",
+          "unit": "рубль",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        }
+      ]
+    },
+    {
+      "table_name": "Supplier_Bonuses",
+      "file": "data/Supplier_Bonuses.csv",
+      "row_count": 1961,
+      "primary_key": [
+        "bonus_id"
+      ],
+      "grain_ru": "Один поставщик, один магазин и один месяц",
+      "columns": [
+        {
+          "name": "bonus_id",
+          "label": "ID бонуса",
+          "meaning": "Уникальный код.",
+          "type": "text",
+          "ref": "",
+          "unit": "",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "supplier_id",
+          "label": "ID поставщика",
+          "meaning": "Поставщик из справочника Suppliers.",
+          "type": "text",
+          "ref": "Suppliers",
+          "unit": "",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "store_id",
+          "label": "ID магазина",
+          "meaning": "Магазин, к закупкам и продажам которого относится бонус.",
+          "type": "text",
+          "ref": "Stores",
+          "unit": "",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "period",
+          "label": "Месяц",
+          "meaning": "Месяц начисления.",
+          "type": "date",
+          "ref": "Calendar",
+          "unit": "",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "purchase_base",
+          "label": "База закупок",
+          "meaning": "Сумма поставок месяца.",
+          "type": "money",
+          "ref": "",
+          "unit": "рубль",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "retro_rate",
+          "label": "Ставка ретро",
+          "meaning": "Suppliers.retro_rate.",
+          "type": "ratio",
+          "ref": "",
+          "unit": "доля",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "retro_amount",
+          "label": "Ретро-бонус",
+          "meaning": "База закупок x ставка ретро.",
+          "type": "money",
+          "ref": "",
+          "unit": "рубль",
+          "nullable": false,
+          "rule": "purchase_base * retro_rate"
+        },
+        {
+          "name": "promo_compensation",
+          "label": "Промо-компенсация",
+          "meaning": "40% промо-скидок по товарам поставщика в месяце.",
+          "type": "money",
+          "ref": "",
+          "unit": "рубль",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "bonus_amount",
+          "label": "Бонус всего",
+          "meaning": "Уменьшает себестоимость месяца начисления.",
+          "type": "money",
+          "ref": "",
+          "unit": "рубль",
+          "nullable": false,
+          "rule": "retro_amount + promo_compensation"
+        },
+        {
+          "name": "settlement_date",
+          "label": "Дата получения",
+          "meaning": "Деньги от поставщика через 45 дней после квартала; пусто, если после среза.",
+          "type": "date",
+          "ref": "",
+          "unit": "",
+          "nullable": true,
+          "rule": "Исходное поле синтетической модели"
+        }
+      ]
+    },
+    {
+      "table_name": "Inventory",
+      "file": "data/Inventory.csv",
+      "row_count": 150811,
+      "primary_key": [
+        "inventory_id"
+      ],
+      "grain_ru": "Один товар в одном магазине за месяц",
+      "columns": [
+        {
+          "name": "inventory_id",
+          "label": "ID строки",
+          "meaning": "Уникальный код.",
+          "type": "text",
+          "ref": "",
+          "unit": "",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "period",
+          "label": "Месяц",
+          "meaning": "Первый день месяца; остаток на последний день.",
+          "type": "date",
+          "ref": "Calendar",
+          "unit": "",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "store_id",
+          "label": "ID магазина",
+          "meaning": "Магазин, к которому относится запись.",
+          "type": "text",
+          "ref": "Stores",
+          "unit": "",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "sku_id",
+          "label": "ID товара",
+          "meaning": "Товар (SKU) из справочника Products.",
+          "type": "text",
+          "ref": "Products",
+          "unit": "",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "opening_qty",
+          "label": "Остаток на начало",
+          "meaning": "Учетный остаток на начало; в июле 2023 включает начальный остаток.",
+          "type": "integer",
+          "ref": "",
+          "unit": "штука",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "received_qty",
+          "label": "Поступило",
+          "meaning": "Поставки поставщиков.",
+          "type": "integer",
+          "ref": "",
+          "unit": "штука",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "transfer_in_qty",
+          "label": "Принято перемещением",
+          "meaning": "Товар из S03 при переезде в S07.",
+          "type": "integer",
+          "ref": "",
+          "unit": "штука",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "returned_qty",
+          "label": "Возвраты в продажу",
+          "meaning": "Возвраты покупателей с is_restocked = true.",
+          "type": "integer",
+          "ref": "",
+          "unit": "штука",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "sold_qty",
+          "label": "Продано",
+          "meaning": "Штуки в чеках месяца, включая выдачу онлайн-заказов; без тестовых чеков.",
+          "type": "integer",
+          "ref": "",
+          "unit": "штука",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "transfer_out_qty",
+          "label": "Отправлено перемещением",
+          "meaning": "Остаток S03 при закрытии.",
+          "type": "integer",
+          "ref": "",
+          "unit": "штука",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "count_adjustment_qty",
+          "label": "Корректировка инвентаризации",
+          "meaning": "Разница факта и учета по инвентаризации; минус = недостача.",
+          "type": "integer",
+          "ref": "",
+          "unit": "штука",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "closing_qty",
+          "label": "Остаток на конец",
+          "meaning": "Учетный остаток на конец месяца.",
+          "type": "integer",
+          "ref": "",
+          "unit": "штука",
+          "nullable": false,
+          "rule": "opening_qty + received_qty + transfer_in_qty + returned_qty - sold_qty - transfer_out_qty + count_adjustment_qty"
+        },
+        {
+          "name": "reserved_qty",
+          "label": "В резерве",
+          "meaning": "Справочно: штуки, собранные под онлайн-заказы и еще не выданные. Входят в closing_qty.",
+          "type": "integer",
+          "ref": "",
+          "unit": "штука",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "unit_cost",
+          "label": "Себестоимость единицы",
+          "meaning": "Product_Costs.unit_cost месяца.",
+          "type": "money",
+          "ref": "",
+          "unit": "рубль",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "closing_value",
+          "label": "Стоимость остатка",
+          "meaning": "closing_qty x unit_cost.",
+          "type": "money",
+          "ref": "",
+          "unit": "рубль",
+          "nullable": false,
+          "rule": "closing_qty * unit_cost"
+        }
+      ]
+    },
+    {
+      "table_name": "Stock_Counts",
+      "file": "data/Stock_Counts.csv",
+      "row_count": 1767,
+      "primary_key": [
+        "count_id"
+      ],
+      "grain_ru": "Одна категория в одном магазине на дату инвентаризации",
+      "columns": [
+        {
+          "name": "count_id",
+          "label": "ID строки",
+          "meaning": "Уникальный код.",
+          "type": "text",
+          "ref": "",
+          "unit": "",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "store_id",
+          "label": "ID магазина",
+          "meaning": "Магазин, к которому относится запись.",
+          "type": "text",
+          "ref": "Stores",
+          "unit": "",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "count_date",
+          "label": "Дата",
+          "meaning": "Последний день квартала; для S03 день закрытия.",
+          "type": "date",
+          "ref": "",
+          "unit": "",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "category_id",
+          "label": "ID категории",
+          "meaning": "Категория пересчитанных товаров.",
+          "type": "text",
+          "ref": "Categories",
+          "unit": "",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "book_qty",
+          "label": "Учет",
+          "meaning": "Учетный остаток до инвентаризации.",
+          "type": "integer",
+          "ref": "",
+          "unit": "штука",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "counted_qty",
+          "label": "Факт",
+          "meaning": "Фактически посчитано штук.",
+          "type": "integer",
+          "ref": "",
+          "unit": "штука",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "difference_qty",
+          "label": "Разница",
+          "meaning": "Факт минус учет.",
+          "type": "integer",
+          "ref": "",
+          "unit": "штука",
+          "nullable": false,
+          "rule": "counted_qty - book_qty"
+        },
+        {
+          "name": "difference_value",
+          "label": "Разница в рублях",
+          "meaning": "Разница x закупочная цена; минус = недостача. Сумма недостач равна пулу «Недостачи по инвентаризации».",
+          "type": "money",
+          "ref": "",
+          "unit": "рубль",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        }
+      ]
+    },
+    {
+      "table_name": "Cost_Pools",
+      "file": "data/Cost_Pools.csv",
+      "row_count": 820,
+      "primary_key": [
+        "pool_id"
+      ],
+      "grain_ru": "Один пул затрат за месяц",
+      "columns": [
+        {
+          "name": "pool_id",
+          "label": "ID пула",
+          "meaning": "Уникальный код.",
+          "type": "text",
+          "ref": "",
+          "unit": "",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "period",
+          "label": "Месяц",
+          "meaning": "Месяц начисления.",
+          "type": "date",
+          "ref": "Calendar",
+          "unit": "",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "store_id",
+          "label": "ID магазина",
+          "meaning": "Магазин или S00 (офис и распределительный центр).",
+          "type": "text",
+          "ref": "Stores",
+          "unit": "",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "cost_category",
+          "label": "Статья",
+          "meaning": "Себестоимость товаров, недостачи, персонал магазина, аренда, открытие и закрытие магазинов, распределительный центр, эквайринг, онлайн-витрина, маркетинг и лояльность, управление.",
+          "type": "text",
+          "ref": "",
+          "unit": "",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "cost_layer",
+          "label": "Слой",
+          "meaning": "Себестоимость или операционные расходы.",
+          "type": "text",
+          "ref": "",
+          "unit": "",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "allocation_method",
+          "label": "Метод",
+          "meaning": "Учтено в строках продаж; прямое отнесение; ABC по мощности; ABC по фактической базе; не распределяется.",
+          "type": "text",
+          "ref": "",
+          "unit": "",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "driver_name",
+          "label": "Драйвер",
+          "meaning": "Драйвер ABC; пусто у других методов.",
+          "type": "text",
+          "ref": "",
+          "unit": "",
+          "nullable": true,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "driver_unit",
+          "label": "Единица драйвера",
+          "meaning": "Единица драйвера.",
+          "type": "text",
+          "ref": "",
+          "unit": "",
+          "nullable": true,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "pool_amount",
+          "label": "Сумма",
+          "meaning": "Сумма за месяц. Пул «Себестоимость товаров» дублирует себестоимость строк чеков за вычетом сторно возвратов: не складывайте.",
+          "type": "money",
+          "ref": "",
+          "unit": "рубль",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "driver_capacity",
+          "label": "Мощность",
+          "meaning": "Для ABC по мощности: оплаченные минуты персонала магазина.",
+          "type": "number",
+          "ref": "",
+          "unit": "",
+          "nullable": true,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "driver_total",
+          "label": "Фактическая база",
+          "meaning": "Сумма потребления драйвера.",
+          "type": "number",
+          "ref": "",
+          "unit": "",
+          "nullable": true,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "allocation_rate",
+          "label": "Ставка",
+          "meaning": "ABC по мощности: pool_amount / max(driver_capacity, driver_total). ABC по факту: pool_amount / driver_total.",
+          "type": "number",
+          "ref": "",
+          "unit": "",
+          "nullable": true,
+          "rule": "Исходное поле синтетической модели"
+        }
+      ]
+    },
+    {
+      "table_name": "Cost_Drivers",
+      "file": "data/Cost_Drivers.csv",
+      "row_count": 794,
+      "primary_key": [
+        "driver_id"
+      ],
+      "grain_ru": "Один объект в одном пуле ABC",
+      "columns": [
+        {
+          "name": "driver_id",
+          "label": "ID драйвера",
+          "meaning": "Уникальный код.",
+          "type": "text",
+          "ref": "",
+          "unit": "",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "pool_id",
+          "label": "ID пула",
+          "meaning": "Распределяемый пул ABC.",
+          "type": "text",
+          "ref": "Cost_Pools",
+          "unit": "",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "store_id",
+          "label": "ID магазина",
+          "meaning": "Магазин-объект для пула распределительного центра; иначе пусто.",
+          "type": "text",
+          "ref": "Stores",
+          "unit": "",
+          "nullable": true,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "channel_id",
+          "label": "ID канала",
+          "meaning": "Канал-объект для пулов персонала и эквайринга; иначе пусто.",
+          "type": "text",
+          "ref": "Channels",
+          "unit": "",
+          "nullable": true,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "driver_quantity",
+          "label": "Потребление",
+          "meaning": "Минуты, штуки или рубли.",
+          "type": "number",
+          "ref": "",
+          "unit": "",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        }
+      ]
+    },
+    {
+      "table_name": "Cost_Allocations",
+      "file": "data/Cost_Allocations.csv",
+      "row_count": 1251,
+      "primary_key": [
+        "allocation_id"
+      ],
+      "grain_ru": "Одна аллокация, неиспользованная мощность или нераспределенный пул",
+      "columns": [
+        {
+          "name": "allocation_id",
+          "label": "ID аллокации",
+          "meaning": "Уникальный код.",
+          "type": "text",
+          "ref": "",
+          "unit": "",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "pool_id",
+          "label": "ID пула",
+          "meaning": "Пул, сумма которого распределена.",
+          "type": "text",
+          "ref": "Cost_Pools",
+          "unit": "",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "driver_id",
+          "label": "ID драйвера",
+          "meaning": "Пусто у прямого отнесения, мощности и нераспределенного.",
+          "type": "text",
+          "ref": "Cost_Drivers",
+          "unit": "",
+          "nullable": true,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "store_id",
+          "label": "ID магазина",
+          "meaning": "Магазин, на который относится сумма (для пула распределительного центра: магазин-получатель).",
+          "type": "text",
+          "ref": "Stores",
+          "unit": "",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "channel_id",
+          "label": "ID канала",
+          "meaning": "Канал; пусто, если сумма не делится по каналам.",
+          "type": "text",
+          "ref": "Channels",
+          "unit": "",
+          "nullable": true,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "allocation_status",
+          "label": "Статус",
+          "meaning": "Распределено, прямое отнесение, неиспользованная мощность, нераспределено.",
+          "type": "text",
+          "ref": "",
+          "unit": "",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "allocated_amount",
+          "label": "Сумма",
+          "meaning": "Округлено до копеек, остаток в последней строке. Сумма строк пула равна пулу.",
+          "type": "money",
+          "ref": "",
+          "unit": "рубль",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        }
+      ]
+    },
+    {
+      "table_name": "Expense_Payments",
+      "file": "data/Expense_Payments.csv",
+      "row_count": 783,
+      "primary_key": [
+        "expense_payment_id"
+      ],
+      "grain_ru": "Один платеж по пулу",
+      "columns": [
+        {
+          "name": "expense_payment_id",
+          "label": "ID платежа",
+          "meaning": "Уникальный код.",
+          "type": "text",
+          "ref": "",
+          "unit": "",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "pool_id",
+          "label": "ID пула",
+          "meaning": "Оплачиваемый пул.",
+          "type": "text",
+          "ref": "Cost_Pools",
+          "unit": "",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "payment_date",
+          "label": "Дата",
+          "meaning": "Дата оплаты; после среза не входят.",
+          "type": "date",
+          "ref": "",
+          "unit": "",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "amount",
+          "label": "Сумма",
+          "meaning": "Сумма оплаты расходов.",
+          "type": "money",
+          "ref": "",
+          "unit": "рубль",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "payment_method",
+          "label": "Способ",
+          "meaning": "Банковский перевод или удержание банком (эквайринг).",
+          "type": "text",
+          "ref": "",
+          "unit": "",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        }
+      ]
+    },
+    {
+      "table_name": "PL_Control",
+      "file": "data/PL_Control.csv",
+      "row_count": 191,
+      "primary_key": [
+        "period",
+        "store_id"
+      ],
+      "grain_ru": "Один месяц и один магазин (S00 = офис и РЦ)",
+      "columns": [
+        {
+          "name": "period",
+          "label": "Месяц",
+          "meaning": "Первый день месяца.",
+          "type": "date",
+          "ref": "Calendar",
+          "unit": "",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "store_id",
+          "label": "ID магазина",
+          "meaning": "Магазин или S00.",
+          "type": "text",
+          "ref": "Stores",
+          "unit": "",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "gross_sales",
+          "label": "Продажи по прайсу",
+          "meaning": "Receipt_Lines.gross_amount без тестовых чеков.",
+          "type": "money",
+          "ref": "",
+          "unit": "рубль",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "promo_discounts",
+          "label": "Промо-скидки",
+          "meaning": "Промо-скидки строк.",
+          "type": "money",
+          "ref": "",
+          "unit": "рубль",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "employee_discounts",
+          "label": "Скидки сотрудникам",
+          "meaning": "Скидки по картам сотрудников.",
+          "type": "money",
+          "ref": "",
+          "unit": "рубль",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "points_redeemed",
+          "label": "Оплачено баллами",
+          "meaning": "Баллы в оплату.",
+          "type": "money",
+          "ref": "",
+          "unit": "рубль",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "sales_net",
+          "label": "Продажи после скидок",
+          "meaning": "Сумма чеков без тестовых.",
+          "type": "money",
+          "ref": "",
+          "unit": "рубль",
+          "nullable": false,
+          "rule": "gross_sales - promo_discounts - employee_discounts - points_redeemed"
+        },
+        {
+          "name": "returns",
+          "label": "Возвраты",
+          "meaning": "Returns.refund_amount по дате возврата и магазину возврата.",
+          "type": "money",
+          "ref": "",
+          "unit": "рубль",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "net_revenue",
+          "label": "Чистая выручка",
+          "meaning": "Продажи после скидок минус возвраты.",
+          "type": "money",
+          "ref": "",
+          "unit": "рубль",
+          "nullable": false,
+          "rule": "sales_net - returns"
+        },
+        {
+          "name": "cogs_goods",
+          "label": "Себестоимость товаров",
+          "meaning": "Себестоимость строк минус сторно возвратов.",
+          "type": "money",
+          "ref": "",
+          "unit": "рубль",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "supplier_bonuses",
+          "label": "Бонусы поставщиков",
+          "meaning": "Supplier_Bonuses.bonus_amount по месяцу начисления; уменьшают себестоимость.",
+          "type": "money",
+          "ref": "",
+          "unit": "рубль",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "shrinkage",
+          "label": "Недостачи",
+          "meaning": "Недостачи по инвентаризации.",
+          "type": "money",
+          "ref": "",
+          "unit": "рубль",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "gross_profit",
+          "label": "Валовая прибыль",
+          "meaning": "Выручка минус себестоимость плюс бонусы минус недостачи.",
+          "type": "money",
+          "ref": "",
+          "unit": "рубль",
+          "nullable": false,
+          "rule": "net_revenue - cogs_goods + supplier_bonuses - shrinkage"
+        },
+        {
+          "name": "staff_expenses",
+          "label": "Персонал",
+          "meaning": "Персонал магазина.",
+          "type": "money",
+          "ref": "",
+          "unit": "рубль",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "occupancy_expenses",
+          "label": "Помещения",
+          "meaning": "Аренда и содержание, открытие и закрытие магазинов.",
+          "type": "money",
+          "ref": "",
+          "unit": "рубль",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "logistics_expenses",
+          "label": "Логистика",
+          "meaning": "Распределительный центр и доставка в магазины.",
+          "type": "money",
+          "ref": "",
+          "unit": "рубль",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "acquiring_expenses",
+          "label": "Эквайринг",
+          "meaning": "Комиссия банка.",
+          "type": "money",
+          "ref": "",
+          "unit": "рубль",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "marketing_expenses",
+          "label": "Маркетинг",
+          "meaning": "Маркетинг, программа лояльности, онлайн-витрина.",
+          "type": "money",
+          "ref": "",
+          "unit": "рубль",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "overhead_expenses",
+          "label": "Управление",
+          "meaning": "Управление сетью.",
+          "type": "money",
+          "ref": "",
+          "unit": "рубль",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "operating_expenses",
+          "label": "Операционные расходы",
+          "meaning": "Сумма шести групп.",
+          "type": "money",
+          "ref": "",
+          "unit": "рубль",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "operating_profit",
+          "label": "Операционный результат",
+          "meaning": "Валовая прибыль минус операционные расходы.",
+          "type": "money",
+          "ref": "",
+          "unit": "рубль",
+          "nullable": false,
+          "rule": "gross_profit - operating_expenses"
+        },
+        {
+          "name": "unused_capacity_cost",
+          "label": "Неиспользованная мощность",
+          "meaning": "Справочно: часть расходов на персонал, не потребленная работой. Уже входит в staff_expenses.",
+          "type": "money",
+          "ref": "",
+          "unit": "рубль",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        }
+      ]
+    },
+    {
+      "table_name": "Cash_Control",
+      "file": "data/Cash_Control.csv",
+      "row_count": 30,
+      "primary_key": [
+        "period"
+      ],
+      "grain_ru": "Один месяц",
+      "columns": [
+        {
+          "name": "period",
+          "label": "Месяц",
+          "meaning": "Первый день месяца.",
+          "type": "date",
+          "ref": "Calendar",
+          "unit": "",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "customer_receipts",
+          "label": "Поступления от покупателей",
+          "meaning": "Receipts.net_amount без тестовых чеков.",
+          "type": "money",
+          "ref": "",
+          "unit": "рубль",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "customer_refunds",
+          "label": "Возвраты покупателям",
+          "meaning": "Returns.refund_amount.",
+          "type": "money",
+          "ref": "",
+          "unit": "рубль",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "supplier_payments",
+          "label": "Оплаты поставщикам",
+          "meaning": "Supplier_Payments.amount.",
+          "type": "money",
+          "ref": "",
+          "unit": "рубль",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "supplier_bonus_receipts",
+          "label": "Бонусы от поставщиков",
+          "meaning": "Supplier_Bonuses.bonus_amount по settlement_date.",
+          "type": "money",
+          "ref": "",
+          "unit": "рубль",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "expense_payments",
+          "label": "Оплаты расходов",
+          "meaning": "Expense_Payments.amount.",
+          "type": "money",
+          "ref": "",
+          "unit": "рубль",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "net_operating_cash_flow",
+          "label": "Денежный поток",
+          "meaning": "Поступления минус возвраты минус оплаты плюс бонусы.",
+          "type": "money",
+          "ref": "",
+          "unit": "рубль",
+          "nullable": false,
+          "rule": "customer_receipts - customer_refunds - supplier_payments + supplier_bonus_receipts - expense_payments"
+        },
+        {
+          "name": "inventory_value",
+          "label": "Запасы",
+          "meaning": "Inventory.closing_value. В августе 2024 не включает остаток S03 в пути в S07.",
+          "type": "money",
+          "ref": "",
+          "unit": "рубль",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "supplier_payable_balance",
+          "label": "Долг поставщикам",
+          "meaning": "Поставки минус оплаты на конец месяца.",
+          "type": "money",
+          "ref": "",
+          "unit": "рубль",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "supplier_bonus_receivable",
+          "label": "Бонусы к получению",
+          "meaning": "Начисленные, но не полученные бонусы.",
+          "type": "money",
+          "ref": "",
+          "unit": "рубль",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "expense_payable_balance",
+          "label": "Неоплаченные расходы",
+          "meaning": "Пулы операционных расходов минус оплаты.",
+          "type": "money",
+          "ref": "",
+          "unit": "рубль",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        },
+        {
+          "name": "loyalty_points_balance",
+          "label": "Баланс баллов",
+          "meaning": "Сумма Loyalty_Events.points на конец месяца: обязательство перед покупателями (1 балл = 1 рубль). Начисление баллов не является расходом в PL_Control.",
+          "type": "integer",
+          "ref": "",
+          "unit": "балл",
+          "nullable": false,
+          "rule": "Исходное поле синтетической модели"
+        }
+      ]
+    }
+  ],
+  "files": [
+    {
+      "path": "data/Calendar.csv",
+      "bytes": 261569,
+      "sha256": "ef1cb481f036e297d17b54c3faa1fc3b420869d0e402684fcd30ad3e3db9c5a3"
+    },
+    {
+      "path": "data/Cash_Control.csv",
+      "bytes": 4089,
+      "sha256": "56b169a907ea76fbf8cdc12e2c6196b8d2193277f8a07857df70888a46b3512c"
+    },
+    {
+      "path": "data/Categories.csv",
+      "bytes": 1602,
+      "sha256": "c58ca3d188910d1275bee77502560c829daeb4fd971cfb4679d6c68e1ead163d"
+    },
+    {
+      "path": "data/Channels.csv",
+      "bytes": 177,
+      "sha256": "801116a906bd7cd396a27554ab190d3e758cea71846cfbd6670a5c9b8391b862"
+    },
+    {
+      "path": "data/Cost_Allocations.csv",
+      "bytes": 85751,
+      "sha256": "edda547d78032b91f2457917151bda43360e8bb59fec759c94baa7020ce596c2"
+    },
+    {
+      "path": "data/Cost_Drivers.csv",
+      "bytes": 25564,
+      "sha256": "73e148233c03dae70509ca509b8633c2a45d8ce0609fbf09a55516152f372c00"
+    },
+    {
+      "path": "data/Cost_Pools.csv",
+      "bytes": 150116,
+      "sha256": "fee384a22f706a013b1b12f36874e42d0edc244ea2aa2acca34489576f1e7249"
+    },
+    {
+      "path": "data/Customers.csv",
+      "bytes": 2523457,
+      "sha256": "e8b6a31ca2d7bb951d922a07020b0478ed0a1d6711698c3502f04cafb8414ba3"
+    },
+    {
+      "path": "data/Expense_Payments.csv",
+      "bytes": 56444,
+      "sha256": "4aea6dc638b045d66037af1c92f9599767c5b9bd47206870b4f8cb396def8600"
+    },
+    {
+      "path": "data/Inventory.csv",
+      "bytes": 9601750,
+      "sha256": "de991f8156957955066725676069344cb54d87d6cb4fe79b28328eb62ea94061"
+    },
+    {
+      "path": "data/Loyalty_Events.csv",
+      "bytes": 30514613,
+      "sha256": "41eef062099b207c5ac17f591e7e01404227b34aabc87631d79c4a5a901bd610"
+    },
+    {
+      "path": "data/Online_Order_Lines.csv",
+      "bytes": 2564231,
+      "sha256": "48a475b5a6115d3d5d9f48f690af14b29f7757816e74ff4d39c36f02e6eb3367"
+    },
+    {
+      "path": "data/Online_Orders.csv",
+      "bytes": 1049174,
+      "sha256": "b114d078dd3122f086da2c4577ec8364e372dad20b0feeaa74fb0a6406dece16"
+    },
+    {
+      "path": "data/PL_Control.csv",
+      "bytes": 36804,
+      "sha256": "d8315d89846991fc99b9657e15e19a0b183a84703b3f307664719073bf85665b"
+    },
+    {
+      "path": "data/Partner_Registry.csv",
+      "bytes": 3070,
+      "sha256": "8973660736855e7b6cd542119490dc3b8efb88fc042c8c1ee4cca1ff926f4980"
+    },
+    {
+      "path": "data/Price_List.csv",
+      "bytes": 122315,
+      "sha256": "df7caa86c3c31322b6527ebc64e3dcc05f67d36cb6b06c9748301ab0629fad2c"
+    },
+    {
+      "path": "data/Product_Costs.csv",
+      "bytes": 737478,
+      "sha256": "ee7b7e0e71736039876497a0543f00142914fcc1eb3da7ca15331603b4eea299"
+    },
+    {
+      "path": "data/Products.csv",
+      "bytes": 74096,
+      "sha256": "59c872fe9a20db4fad59df9dbc7994cd74a511a8c9e73daf08f3e4c9aa14e5a5"
+    },
+    {
+      "path": "data/Promo_Items.csv",
+      "bytes": 135713,
+      "sha256": "8bfdf7238f905cfccd2a0018473be822454d1ae2d51e91aa57de9b668e2aecd2"
+    },
+    {
+      "path": "data/Promotions.csv",
+      "bytes": 10400,
+      "sha256": "7472b05d509d1fd90961e1fbe00bf6bae2e833a005b3e1f656529b7ab6ba24f0"
+    },
+    {
+      "path": "data/Receipt_Lines.csv",
+      "bytes": 72430396,
+      "sha256": "2caf790cbb1dcc1b05a7be457236af3b15e650ac4950f39e01e41014b6a33c09"
+    },
+    {
+      "path": "data/Receipts.csv",
+      "bytes": 63494402,
+      "sha256": "68b0528b66d53c32ca888b195bfc60faaa4c2d7791a07bf0cfc7e4d440dd7faf"
+    },
+    {
+      "path": "data/Returns.csv",
+      "bytes": 1038538,
+      "sha256": "646581127418ced09f242347e06b9e355011a575e216533f3b8c50b81f0750f5"
+    },
+    {
+      "path": "data/Stock_Counts.csv",
+      "bytes": 81863,
+      "sha256": "71dc46ad37059f68cbe83c0aaef9c9d197469945a2618e0f96dc805848a79069"
+    },
+    {
+      "path": "data/Store_Hours.csv",
+      "bytes": 622,
+      "sha256": "2d003be1a3959044afc9ff7a9c0adcc470429438dd0f2033eafa449430fa1969"
+    },
+    {
+      "path": "data/Stores.csv",
+      "bytes": 912,
+      "sha256": "316cd8d0ed6f41fd354269eeea12584519c8bb38482225791775ea18678718a0"
+    },
+    {
+      "path": "data/Supplier_Bonuses.csv",
+      "bytes": 148647,
+      "sha256": "af97db9fa9dea74021c7976cfe6f642dfff5f3d1f7b550f8f3318ea0efd051b8"
+    },
+    {
+      "path": "data/Supplier_Deliveries.csv",
+      "bytes": 551436,
+      "sha256": "b75fc04ebe8451c8db915f63f8cf6ffbd2fcff2594db4f3f890d2acd4b745d6a"
+    },
+    {
+      "path": "data/Supplier_Payments.csv",
+      "bytes": 319929,
+      "sha256": "63b90e9f60ce588b491069d2ccd0bdccc4ae174142321a4e1dd968fb49bd51fe"
+    },
+    {
+      "path": "data/Suppliers.csv",
+      "bytes": 735,
+      "sha256": "9225fd432464fcc6800be96822f7135e89bb95b5312143db65f8c7b07fbc88f2"
+    },
+    {
+      "path": "metadata/charts.csv",
+      "bytes": 14882,
+      "sha256": "d2e36675e123474b187d35946cfbf3e413af6dfabaded342149e03507aebff46"
+    },
+    {
+      "path": "metadata/columns.csv",
+      "bytes": 59318,
+      "sha256": "f710d8ee058f121ec777058e7bbafb5d7e55c7bd90355ec9f15f3234244df82a"
+    },
+    {
+      "path": "metadata/metrics.csv",
+      "bytes": 8962,
+      "sha256": "079c0a4baa87f0a06561fa2171eccacc0adaefe83a4f24dbe895ba5c13b79e8b"
+    },
+    {
+      "path": "metadata/relationships.csv",
+      "bytes": 16977,
+      "sha256": "ea774c58da092cdc83ac5f364dfe780980cdb672ebf271628b4a886f1f43e74e"
+    },
+    {
+      "path": "metadata/tables.csv",
+      "bytes": 4164,
+      "sha256": "e6cfc3b802d7b221e70465899e4fb35523042869b73b22a9b511f465a5c26499"
+    },
+    {
+      "path": "Инструкция.html",
+      "bytes": 152989,
+      "sha256": "98a27f9a9a8056ac93060a6a4f88ad8d45c8d0040e9436123ad8324d1f4f1296"
+    },
+    {
+      "path": "Начните здесь.txt",
+      "bytes": 4118,
+      "sha256": "283a23b03f93bcd2e205750c516880ced37c1dec6417912302c1635b35516aff"
+    },
+    {
+      "path": "Проверка.txt",
+      "bytes": 7389,
+      "sha256": "acab79069d26beefed3df6d2a0cd339e0a5e86a32f9d67abc72763035df1b1b3"
+    }
+  ]
+}

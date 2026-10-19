@@ -1,0 +1,254 @@
+﻿table_name;column_name;label_ru;description_ru;data_type;unit;is_nullable;is_primary_key;is_foreign_key;related_table;related_column;calculation_rule_ru;example_value
+Calendar;date;Дата;День с 01.01.2017 по 31.12.2026: справочные даты (открытие магазинов, регистрация карт), история с 01.07.2023, анализ 2024-2025, сроки оплат и сгорания баллов после среза.;date;;false;true;false;;;Исходное поле синтетической модели;2017-01-01
+Calendar;year;Год;Календарный год.;integer;;false;false;false;;;Исходное поле синтетической модели;2017
+Calendar;quarter;Квартал;Номер квартала от 1 до 4.;integer;;false;false;false;;;Исходное поле синтетической модели;1
+Calendar;month_number;Месяц;Номер месяца от 1 до 12.;integer;;false;false;false;;;Исходное поле синтетической модели;1
+Calendar;month_name;Название месяца;Русское название месяца.;text;;false;false;false;;;Исходное поле синтетической модели;январь
+Calendar;iso_week;Неделя ISO;Номер недели по ISO 8601.;integer;;false;false;false;;;Исходное поле синтетической модели;52
+Calendar;weekday_number;Номер дня недели;1 = понедельник, 7 = воскресенье.;integer;;false;false;false;;;Исходное поле синтетической модели;7
+Calendar;weekday_name;День недели;Русское название дня недели.;text;;false;false;false;;;Исходное поле синтетической модели;воскресенье
+Calendar;is_weekend;Выходной;Суббота или воскресенье.;boolean;;false;false;false;;;Исходное поле синтетической модели;true
+Calendar;is_holiday;Праздник;1, 2 и 7 января, 23 февраля, 8 марта, 1 и 9 мая, 12 июня, 4 ноября. 1 января все магазины закрыты.;boolean;;false;false;false;;;Исходное поле синтетической модели;true
+Calendar;is_analysis_period;Период анализа;true для дат 01.01.2024-31.12.2025.;boolean;;false;false;false;;;Исходное поле синтетической модели;false
+Stores;store_id;ID магазина;Уникальный код. S00 = офис и распределительный центр без продаж.;text;;false;true;true;Stores;store_id;Исходное поле синтетической модели;S00
+Stores;store_name;Название;Вымышленное название.;text;;false;false;false;;;Исходное поле синтетической модели;Офис и распределительный центр
+Stores;city;Город;Москва или Казань.;text;;false;false;false;;;Исходное поле синтетической модели;Москва
+Stores;format_name;Формат;Флагман, спальный район, центр города, торговый центр или офис.;text;;false;false;false;;;Исходное поле синтетической модели;Офис и РЦ
+Stores;area_sqm;Торговая площадь;"Площадь торгового зала; 0 у офиса.";integer;кв. м;false;false;false;;;Исходное поле синтетической модели;0
+Stores;open_date;Дата открытия;Первый день продаж. S07 открыт 14.09.2024 вместо S03, S05 открыт 12.04.2025 рядом с S02. Пусто у офиса.;date;;true;false;false;;;Исходное поле синтетической модели;2017-03-01
+Stores;close_date;Дата закрытия;Последний день продаж. S03 закрыт 31.08.2024 (переезд в S07). Пусто, если работает.;date;;true;false;false;;;Исходное поле синтетической модели;2024-08-31
+Stores;predecessor_store_id;ID магазина;Магазин, который заменил этот магазин при переезде. Для S07 это S03.;text;;true;false;true;Stores;store_id;Исходное поле синтетической модели;S03
+Stores;is_store;Магазин;false у офиса S00.;boolean;;false;false;false;;;Исходное поле синтетической модели;false
+Store_Hours;store_id;ID магазина;Магазин, к которому относится запись.;text;;false;true;true;Stores;store_id;Исходное поле синтетической модели;S01
+Store_Hours;weekday_number;Номер дня недели;1 = понедельник, 7 = воскресенье.;integer;;false;true;false;;;Исходное поле синтетической модели;1
+Store_Hours;open_hour;Открытие;Час открытия, местное время.;integer;час;false;false;false;;;Исходное поле синтетической модели;9
+Store_Hours;close_hour;Закрытие;"Час закрытия; чеки до этого часа.";integer;час;false;false;false;;;Исходное поле синтетической модели;23
+Channels;channel_id;ID канала;CH01 покупка в магазине, CH02 онлайн-заказ с самовывозом.;text;;false;true;false;;;Исходное поле синтетической модели;CH01
+Channels;channel_name;Канал;Название канала.;text;;false;false;false;;;Исходное поле синтетической модели;Покупка в магазине
+Channels;receipt_channel;Значение в чеке;Значение поля Receipts.channel для этого канала.;text;;false;false;false;;;Исходное поле синтетической модели;Магазин
+Categories;category_id;ID категории;Уникальный код.;text;;false;true;false;;;Исходное поле синтетической модели;K01
+Categories;category_l1;Группа;Категория первого уровня: уход за лицом, волосы, декоративная косметика, бытовая химия и другие.;text;;false;false;false;;;Исходное поле синтетической модели;Уход за лицом
+Categories;category_l2;Категория;Категория второго уровня.;text;;false;false;false;;;Исходное поле синтетической модели;Очищение
+Suppliers;supplier_id;ID поставщика;Уникальный код.;text;;false;true;false;;;Исходное поле синтетической модели;V01
+Suppliers;supplier_name;Поставщик;Вымышленное название. V13 производит собственную марку.;text;;false;false;false;;;Исходное поле синтетической модели;ООО «Бьюти Трейд»
+Suppliers;payment_terms_days;Отсрочка платежа;Дней от поставки до срока оплаты.;integer;день;false;false;false;;;Исходное поле синтетической модели;45
+Suppliers;retro_rate;Ретро-бонус;Доля закупок, которую поставщик возвращает ретро-бонусом.;ratio;доля;false;false;false;;;Исходное поле синтетической модели;0.03
+Products;sku_id;ID товара;Уникальный код товара.;text;;false;true;true;Products;sku_id;Исходное поле синтетической модели;P0001
+Products;sku_name;Название;Вымышленное название.;text;;false;false;false;;;Исходное поле синтетической модели;Очищение Хвоя 1
+Products;category_id;ID категории;Категория второго уровня.;text;;false;false;true;Categories;category_id;Исходное поле синтетической модели;K01
+Products;brand;Бренд;Вымышленный бренд. «Своя полка» = собственная марка сети.;text;;false;false;false;;;Исходное поле синтетической модели;Хвоя
+Products;is_private_label;Собственная марка;true для товаров «Своя полка», запуск 03.03.2025.;boolean;;false;false;false;;;Исходное поле синтетической модели;false
+Products;supplier_id;ID поставщика;Поставщик товара.;text;;false;false;true;Suppliers;supplier_id;Исходное поле синтетической модели;V01
+Products;launch_date;Дата запуска;"Первый день продаж нового товара; пусто, если товар продавался до истории.";date;;true;false;false;;;Исходное поле синтетической модели;2023-11-01
+Products;delist_date;Дата вывода;"Последний день продаж; пусто, если товар в ассортименте.";date;;true;false;false;;;Исходное поле синтетической модели;2024-04-15
+Price_List;price_id;ID цены;Уникальный код.;text;;false;true;false;;;Исходное поле синтетической модели;PL00001
+Price_List;sku_id;ID товара;Товар (SKU) из справочника Products.;text;;false;false;true;Products;sku_id;Исходное поле синтетической модели;P0001
+Price_List;valid_from;Действует с;Начало действия. Переоценки 01.03.2024 и 01.03.2025.;date;;false;false;false;;;Исходное поле синтетической модели;2017-01-01
+Price_List;valid_to;Действует по;Пусто для действующей цены.;date;;true;false;false;;;Исходное поле синтетической модели;2024-02-29
+Price_List;regular_price;Цена;Регулярная цена за штуку до скидок, без НДС. Одинакова во всех магазинах и в онлайн-заказах.;money;рубль;false;false;false;;;Исходное поле синтетической модели;659.00
+Product_Costs;sku_id;ID товара;Товар (SKU) из справочника Products.;text;;false;true;true;Products;sku_id;Исходное поле синтетической модели;P0001
+Product_Costs;period;Месяц;Первый день месяца.;date;;false;true;true;Calendar;date;Исходное поле синтетической модели;2023-07-01
+Product_Costs;unit_cost;Закупочная цена;Себестоимость единицы в этом месяце. Используется в строках чеков, поставках и оценке остатков.;money;рубль;false;false;false;;;Исходное поле синтетической модели;271.45
+Promotions;promo_id;ID акции;Уникальный код.;text;;false;true;false;;;Исходное поле синтетической модели;PR001
+Promotions;promo_name;Название;Номер волны, механика и группы товаров.;text;;false;false;false;;;Исходное поле синтетической модели;Акция 1: Скидка 20%, Бытовая химия, Декоративная косметика, Уход за телом
+Promotions;mechanic;Механика;Скидка 20%, Скидка 30% или 1+1 (вторая единица бесплатно).;text;;false;false;false;;;Исходное поле синтетической модели;Скидка 20%
+Promotions;discount_rate;Глубина;"Доля скидки от регулярной цены; для 1+1 равна 0,5 на пару.";ratio;доля;false;false;false;;;Исходное поле синтетической модели;0.2
+Promotions;start_date;Начало;Первый день акции.;date;;false;false;false;;;Исходное поле синтетической модели;2023-07-03
+Promotions;end_date;Окончание;Последний день акции.;date;;false;false;false;;;Исходное поле синтетической модели;2023-07-16
+Promotions;supplier_funding_rate;Компенсация поставщика;Доля промо-скидки, которую поставщик возвращает в Supplier_Bonuses. Собственная марка в акциях не участвует.;ratio;доля;false;false;false;;;Исходное поле синтетической модели;0.4
+Promo_Items;promo_item_id;ID строки;Уникальный код.;text;;false;true;false;;;Исходное поле синтетической модели;PI00001
+Promo_Items;promo_id;ID акции;Акция, в которой участвует товар.;text;;false;false;true;Promotions;promo_id;Исходное поле синтетической модели;PR001
+Promo_Items;sku_id;ID товара;Товар, участвующий в акции.;text;;false;false;true;Products;sku_id;Исходное поле синтетической модели;P0497
+Customers;customer_id;ID карты;Обезличенный код карты.;text;;false;true;false;;;Исходное поле синтетической модели;C000001
+Customers;registration_date;Дата регистрации;Вступление в программу лояльности. Не равна первой покупке.;date;;false;false;false;;;Исходное поле синтетической модели;2019-07-21
+Customers;registration_store_id;ID магазина;Магазин регистрации.;text;;false;false;true;Stores;store_id;Исходное поле синтетической модели;S01
+Customers;registration_source;Источник;Касса, сайт или онлайн-заказ. Часть зарегистрированных на сайте не покупала.;text;;false;false;false;;;Исходное поле синтетической модели;Онлайн-заказ
+Customers;gender;Пол;Указан покупателем.;text;;false;false;false;;;Исходное поле синтетической модели;Ж
+Customers;birth_year;Год рождения;Указан покупателем.;integer;;false;false;false;;;Исходное поле синтетической модели;1961
+Customers;consent_marketing;Согласие на рассылку;Согласие на маркетинговые сообщения.;boolean;;false;false;false;;;Исходное поле синтетической модели;false
+Customers;is_employee;Сотрудник;Карта сотрудника: скидка 20% на неакционные товары, баллы не начисляются. Исключайте из B2C-аналитики.;boolean;;false;false;false;;;Исходное поле синтетической модели;false
+Customers;customer_key_status;Статус ключа;Основная карта или Дубль карты. Дубль принадлежит тому же человеку, что master_customer_id.;text;;false;false;false;;;Исходное поле синтетической модели;Основная карта
+Customers;master_customer_id;ID основной карты;Для дублей: основная карта того же покупателя. Объединяйте покупки дубля с основной картой до RFM и когорт.;text;;true;false;true;Customers;customer_id;Исходное поле синтетической модели;C000019
+Customers;crm_first_purchase_date;Первая покупка по CRM;Истинная первая покупка покупателя по данным CRM, может быть раньше 01.07.2023. Пусто у дублей и карт без покупок.;date;;true;false;false;;;Исходное поле синтетической модели;2019-07-21
+Partner_Registry;partner_id;ID партнера;Уникальный код.;text;;false;true;false;;;Исходное поле синтетической модели;PT001
+Partner_Registry;customer_id;ID карты покупателя;Карта, которой пользуется партнер.;text;;false;false;true;Customers;customer_id;Исходное поле синтетической модели;C026614
+Partner_Registry;partner_name;Партнер;Вымышленное название.;text;;false;false;false;;;Исходное поле синтетической модели;Салон красоты 1
+Partner_Registry;partner_type;Тип;Салоны красоты покупают товары для работы. Это закупка для бизнеса, а не B2C.;text;;false;false;false;;;Исходное поле синтетической модели;Салон красоты: закупка для работы
+Partner_Registry;valid_from;Партнер с;Дата включения в реестр.;date;;false;false;false;;;Исходное поле синтетической модели;2024-09-09
+Receipts;receipt_id;ID чека;Уникальный код.;text;;false;true;false;;;Исходное поле синтетической модели;R0000001
+Receipts;store_id;ID магазина;Магазин, к которому относится запись.;text;;false;false;true;Stores;store_id;Исходное поле синтетической модели;S01
+Receipts;receipt_datetime;Дата и время;Время пробития чека, местное время. Для онлайн-заказа это выдача, а не оформление.;datetime;;false;false;false;;;Исходное поле синтетической модели;2023-07-01T09:02:07
+Receipts;channel;Канал;Магазин или Онлайн-заказ.;text;;false;false;false;;;Исходное поле синтетической модели;Магазин
+Receipts;online_order_id;ID онлайн-заказа;"Онлайн-заказ, по которому выдан товар; пусто для покупки в магазине.";text;;true;false;true;Online_Orders;online_order_id;Исходное поле синтетической модели;OO000001
+Receipts;customer_id;ID карты покупателя;"Карта покупателя; пусто для анонимного чека.";text;;true;false;true;Customers;customer_id;Исходное поле синтетической модели;C002637
+Receipts;payment_method;Способ оплаты;Банковская карта, СБП или наличные.;text;;false;false;false;;;Исходное поле синтетической модели;Банковская карта
+Receipts;gross_amount;Сумма по прайсу;Сумма строк по регулярной цене.;money;рубль;false;false;false;;;Исходное поле синтетической модели;3137.00
+Receipts;promo_discount;Промо-скидка;Скидки по акциям.;money;рубль;false;false;false;;;Исходное поле синтетической модели;0.00
+Receipts;employee_discount;Скидка сотрудника;Скидка по карте сотрудника.;money;рубль;false;false;false;;;Исходное поле синтетической модели;0.00
+Receipts;points_redeemed;Оплачено баллами;Баллы, списанные в оплату (1 балл = 1 рубль). Это скидка: выручку уменьшает.;money;рубль;false;false;false;;;Исходное поле синтетической модели;0.00
+Receipts;net_amount;Сумма чека;Выручка чека и деньги, полученные от покупателя.;money;рубль;false;false;false;;;gross_amount - promo_discount - employee_discount - points_redeemed;3137.00
+Receipts;points_accrued;Начислено баллов;Баллы, начисленные за чек: 5% от суммы чека до 01.06.2025, 3% после.;integer;балл;false;false;false;;;Исходное поле синтетической модели;157
+Receipts;is_test;Тестовый чек;Тестовый чек кассы, аннулирован. Исключайте из выручки и всей аналитики.;boolean;;false;false;false;;;Исходное поле синтетической модели;false
+Receipts;is_employee;Покупка сотрудника;Выручка, но не B2C-аналитика.;boolean;;false;false;false;;;Исходное поле синтетической модели;false
+Receipts;is_b2b_or_partner;Покупка партнера;Карта из Partner_Registry. Выручка, но не B2C-аналитика.;boolean;;false;false;false;;;Исходное поле синтетической модели;false
+Receipt_Lines;receipt_line_id;ID строки;Уникальный код.;text;;false;true;false;;;Исходное поле синтетической модели;R0000001-01
+Receipt_Lines;receipt_id;ID чека;Чек, к которому относится строка.;text;;false;false;true;Receipts;receipt_id;Исходное поле синтетической модели;R0000001
+Receipt_Lines;sku_id;ID товара;Товар (SKU) из справочника Products.;text;;false;false;true;Products;sku_id;Исходное поле синтетической модели;P0153
+Receipt_Lines;quantity;Количество;Проданные штуки.;integer;штука;false;false;false;;;Исходное поле синтетической модели;1
+Receipt_Lines;unit_price;Цена;Регулярная цена на дату продажи (для онлайн-заказа на дату оформления).;money;рубль;false;false;false;;;Исходное поле синтетической модели;359.00
+Receipt_Lines;gross_amount;Сумма по прайсу;Количество x цена.;money;рубль;false;false;false;;;quantity * unit_price;359.00
+Receipt_Lines;promo_id;ID акции;"Акция строки; пусто без акции.";text;;true;false;true;Promotions;promo_id;Исходное поле синтетической модели;PR001
+Receipt_Lines;promo_discount;Промо-скидка;"Скидка 20% или 30% от суммы; для 1+1 цена каждой второй единицы.";money;рубль;false;false;false;;;Исходное поле синтетической модели;0.00
+Receipt_Lines;employee_discount;Скидка сотрудника;20% от суммы неакционной строки по карте сотрудника.;money;рубль;false;false;false;;;Исходное поле синтетической модели;0.00
+Receipt_Lines;points_redeemed;Оплачено баллами;Часть баллов чека, распределенная пропорционально сумме строк.;money;рубль;false;false;false;;;Исходное поле синтетической модели;0.00
+Receipt_Lines;net_amount;Выручка строки;Сумма строки после всех скидок и баллов.;money;рубль;false;false;false;;;gross_amount - promo_discount - employee_discount - points_redeemed;359.00
+Receipt_Lines;unit_cost;Себестоимость единицы;"Product_Costs.unit_cost месяца продажи; 0 у тестовых чеков.";money;рубль;false;false;false;;;Исходное поле синтетической модели;188.56
+Receipt_Lines;cost_amount;Себестоимость;Количество x себестоимость единицы.;money;рубль;false;false;false;;;quantity * unit_cost;188.56
+Online_Orders;online_order_id;ID заказа;Уникальный код.;text;;false;true;false;;;Исходное поле синтетической модели;OO000001
+Online_Orders;customer_id;ID карты покупателя;"Карта покупателя; онлайн-заказ возможен только с картой.";text;;false;false;true;Customers;customer_id;Исходное поле синтетической модели;C004404
+Online_Orders;order_datetime;Оформлен;Дата и время оформления на сайте.;datetime;;false;false;false;;;Исходное поле синтетической модели;2023-07-02T20:24:16
+Online_Orders;pickup_store_id;ID магазина;Магазин выдачи.;text;;false;false;true;Stores;store_id;Исходное поле синтетической модели;S02
+Online_Orders;ready_date;Собран;День сборки в магазине (следующий рабочий день). Пусто, если заказ отменен до сборки.;date;;true;false;false;;;Исходное поле синтетической модели;2023-07-03
+Online_Orders;pickup_date;Выдан;"День выдачи покупателю; пусто, если не выдан.";date;;true;false;false;;;Исходное поле синтетической модели;2023-07-03
+Online_Orders;order_status;Статус;Выдан, Выдан частично, Отменен, Не выкуплен.;text;;false;false;false;;;Исходное поле синтетической модели;Выдан
+Online_Order_Lines;online_order_line_id;ID строки;Уникальный код.;text;;false;true;false;;;Исходное поле синтетической модели;OO000001-01
+Online_Order_Lines;online_order_id;ID заказа;Заказ, к которому относится строка.;text;;false;false;true;Online_Orders;online_order_id;Исходное поле синтетической модели;OO000001
+Online_Order_Lines;sku_id;ID товара;Товар (SKU) из справочника Products.;text;;false;false;true;Products;sku_id;Исходное поле синтетической модели;P0602
+Online_Order_Lines;ordered_qty;Заказано;Заказанные штуки.;integer;штука;false;false;false;;;Исходное поле синтетической модели;1
+Online_Order_Lines;fulfilled_qty;Выдано;"Выданные штуки; равны количеству в чеке выдачи.";integer;штука;false;false;false;;;Исходное поле синтетической модели;1
+Online_Order_Lines;cancelled_qty;Отменено;Заказано, но не выдано.;integer;штука;false;false;false;;;ordered_qty - fulfilled_qty;0
+Online_Order_Lines;cancel_reason;Причина отмены;Нет в наличии (при сборке), Отмена покупателем, Не выкуплен, Магазин закрыт (S03 при переезде). Пусто без отмены. Дефицит определяйте только по «Нет в наличии».;text;;true;false;false;;;Исходное поле синтетической модели;Не выкуплен
+Online_Order_Lines;pending_qty;Ожидает;Заказы на срез, еще не собранные или не выданные.;integer;штука;false;false;false;;;ordered_qty - fulfilled_qty - cancelled_qty;0
+Online_Order_Lines;unit_price;Цена;Регулярная цена на дату оформления.;money;рубль;false;false;false;;;Исходное поле синтетической модели;459.00
+Returns;return_id;ID возврата;Уникальный код.;text;;false;true;false;;;Исходное поле синтетической модели;RT000001
+Returns;receipt_line_id;ID строки чека;Исходная строка продажи.;text;;false;false;true;Receipt_Lines;receipt_line_id;Исходное поле синтетической модели;R0000314-02
+Returns;receipt_id;ID чека;Исходный чек продажи.;text;;false;false;true;Receipts;receipt_id;Исходное поле синтетической модели;R0000314
+Returns;store_id;ID магазина;"Магазин, принявший возврат; после закрытия S03 возвраты принимает S07.";text;;false;false;true;Stores;store_id;Исходное поле синтетической модели;S01
+Returns;return_datetime;Дата и время;Время возврата, местное время.;datetime;;false;false;false;;;Исходное поле синтетической модели;2023-07-02T09:19:48
+Returns;sku_id;ID товара;Товар (SKU) из справочника Products.;text;;false;false;true;Products;sku_id;Исходное поле синтетической модели;P0028
+Returns;quantity;Количество;Возвращенные штуки.;integer;штука;false;false;false;;;Исходное поле синтетической модели;1
+Returns;return_reason;Причина;Не подошел, брак, аллергическая реакция.;text;;false;false;false;;;Исходное поле синтетической модели;Не подошел
+Returns;is_restocked;Возвращен в продажу;true, если товар не вскрыт и вернулся в остаток.;boolean;;false;false;false;;;Исходное поле синтетической модели;true
+Returns;refund_amount;Возвращено денег;"Деньги покупателю; уменьшает выручку в дату возврата.";money;рубль;false;false;false;;;Исходное поле синтетической модели;459.00
+Returns;refund_method;Способ возврата;Тем же способом, что и оплата.;text;;false;false;false;;;Исходное поле синтетической модели;Банковская карта
+Returns;points_returned;Возвращено баллов;Баллы, которыми была оплачена возвращенная часть.;integer;балл;false;false;false;;;Исходное поле синтетической модели;0
+Returns;points_reversed;Отменено начисление;Баллы за возвращенную часть, списанные обратно (не больше остатка на карте).;integer;балл;false;false;false;;;Исходное поле синтетической модели;0
+Returns;cost_reversal;Сторно себестоимости;"Себестоимость товара, вернувшегося в продажу; 0, если товар списан.";money;рубль;false;false;false;;;Исходное поле синтетической модели;246.82
+Loyalty_Events;event_id;ID события;Уникальный код.;text;;false;true;false;;;Исходное поле синтетической модели;LE00000001
+Loyalty_Events;customer_id;ID карты покупателя;Карта, баланс которой меняется.;text;;false;false;true;Customers;customer_id;Исходное поле синтетической модели;C000003
+Loyalty_Events;event_datetime;Дата и время;Дата и время события.;datetime;;false;false;false;;;Исходное поле синтетической модели;2023-07-01T00:00:00
+Loyalty_Events;event_type;Тип события;Начальный остаток, Начисление, Списание при оплате, Сгорание, Возврат баллов при возврате товара, Отмена начисления при возврате. Типы не смешивайте.;text;;false;false;false;;;Исходное поле синтетической модели;Начальный остаток
+Loyalty_Events;points;Баллы;Плюс = начисление, минус = списание. Сумма по карте = баланс.;integer;балл;false;false;false;;;Исходное поле синтетической модели;600
+Loyalty_Events;receipt_id;ID чека;Чек начисления или списания.;text;;true;false;true;Receipts;receipt_id;Исходное поле синтетической модели;R0000001
+Loyalty_Events;return_id;ID возврата;Возврат для корректировок.;text;;true;false;true;Returns;return_id;Исходное поле синтетической модели;RT000002
+Loyalty_Events;expiry_date;Сгорают;Для начислений: дата сгорания. Баллы, начисленные до 01.06.2025, живут 365 дней, после 183 дня.;date;;true;false;false;;;Исходное поле синтетической модели;2023-12-07
+Supplier_Deliveries;delivery_id;ID поставки;Уникальный код.;text;;false;true;false;;;Исходное поле синтетической модели;DL00001
+Supplier_Deliveries;supplier_id;ID поставщика;Поставщик из справочника Suppliers.;text;;false;false;true;Suppliers;supplier_id;Исходное поле синтетической модели;V01
+Supplier_Deliveries;store_id;ID магазина;Магазин получения (через распределительный центр).;text;;false;false;true;Stores;store_id;Исходное поле синтетической модели;S01
+Supplier_Deliveries;order_date;Дата заказа;Еженедельный заказ: Москва по понедельникам, Казань по вторникам.;date;;false;false;false;;;Исходное поле синтетической модели;2023-07-03
+Supplier_Deliveries;delivery_date;Дата поставки;Товар доступен к продаже с этой даты.;date;;false;false;false;;;Исходное поле синтетической модели;2023-07-05
+Supplier_Deliveries;ordered_qty;Заказано;Штуки в заказе поставщику.;integer;штука;false;false;false;;;Исходное поле синтетической модели;33
+Supplier_Deliveries;delivered_qty;Поставлено;Фактически поставленные штуки. Разница с заказом = недопоставка поставщика.;integer;штука;false;false;false;;;Исходное поле синтетической модели;32
+Supplier_Deliveries;amount;Сумма;Поставленные штуки x закупочная цена месяца поставки.;money;рубль;false;false;false;;;Исходное поле синтетической модели;13118.41
+Supplier_Deliveries;due_date;Срок оплаты;Дата поставки + отсрочка поставщика.;date;;false;false;false;;;Исходное поле синтетической модели;2023-08-19
+Supplier_Payments;supplier_payment_id;ID оплаты;Уникальный код.;text;;false;true;false;;;Исходное поле синтетической модели;SP00001
+Supplier_Payments;delivery_id;ID поставки;Оплаченная поставка.;text;;false;false;true;Supplier_Deliveries;delivery_id;Исходное поле синтетической модели;DL00001
+Supplier_Payments;supplier_id;ID поставщика;Поставщик из справочника Suppliers.;text;;false;false;true;Suppliers;supplier_id;Исходное поле синтетической модели;V01
+Supplier_Payments;payment_date;Дата оплаты;Оплата в срок или с задержкой до 5 дней. Оплаты после среза не входят.;date;;false;false;false;;;Исходное поле синтетической модели;2023-08-21
+Supplier_Payments;amount;Сумма;Сумма поставки.;money;рубль;false;false;false;;;Исходное поле синтетической модели;13118.41
+Supplier_Bonuses;bonus_id;ID бонуса;Уникальный код.;text;;false;true;false;;;Исходное поле синтетической модели;SB00001
+Supplier_Bonuses;supplier_id;ID поставщика;Поставщик из справочника Suppliers.;text;;false;false;true;Suppliers;supplier_id;Исходное поле синтетической модели;V01
+Supplier_Bonuses;store_id;ID магазина;Магазин, к закупкам и продажам которого относится бонус.;text;;false;false;true;Stores;store_id;Исходное поле синтетической модели;S01
+Supplier_Bonuses;period;Месяц;Месяц начисления.;date;;false;false;true;Calendar;date;Исходное поле синтетической модели;2023-07-01
+Supplier_Bonuses;purchase_base;База закупок;Сумма поставок месяца.;money;рубль;false;false;false;;;Исходное поле синтетической модели;221968.90
+Supplier_Bonuses;retro_rate;Ставка ретро;Suppliers.retro_rate.;ratio;доля;false;false;false;;;Исходное поле синтетической модели;0.03
+Supplier_Bonuses;retro_amount;Ретро-бонус;База закупок x ставка ретро.;money;рубль;false;false;false;;;purchase_base * retro_rate;6659.07
+Supplier_Bonuses;promo_compensation;Промо-компенсация;40% промо-скидок по товарам поставщика в месяце.;money;рубль;false;false;false;;;Исходное поле синтетической модели;0.00
+Supplier_Bonuses;bonus_amount;Бонус всего;Уменьшает себестоимость месяца начисления.;money;рубль;false;false;false;;;retro_amount + promo_compensation;6659.07
+Supplier_Bonuses;settlement_date;Дата получения;"Деньги от поставщика через 45 дней после квартала; пусто, если после среза.";date;;true;false;false;;;Исходное поле синтетической модели;2023-11-14
+Inventory;inventory_id;ID строки;Уникальный код.;text;;false;true;false;;;Исходное поле синтетической модели;IN000001
+Inventory;period;Месяц;"Первый день месяца; остаток на последний день.";date;;false;false;true;Calendar;date;Исходное поле синтетической модели;2023-07-01
+Inventory;store_id;ID магазина;Магазин, к которому относится запись.;text;;false;false;true;Stores;store_id;Исходное поле синтетической модели;S01
+Inventory;sku_id;ID товара;Товар (SKU) из справочника Products.;text;;false;false;true;Products;sku_id;Исходное поле синтетической модели;P0001
+Inventory;opening_qty;Остаток на начало;"Учетный остаток на начало; в июле 2023 включает начальный остаток.";integer;штука;false;false;false;;;Исходное поле синтетической модели;57
+Inventory;received_qty;Поступило;Поставки поставщиков.;integer;штука;false;false;false;;;Исходное поле синтетической модели;25
+Inventory;transfer_in_qty;Принято перемещением;Товар из S03 при переезде в S07.;integer;штука;false;false;false;;;Исходное поле синтетической модели;0
+Inventory;returned_qty;Возвраты в продажу;Возвраты покупателей с is_restocked = true.;integer;штука;false;false;false;;;Исходное поле синтетической модели;1
+Inventory;sold_qty;Продано;"Штуки в чеках месяца, включая выдачу онлайн-заказов; без тестовых чеков.";integer;штука;false;false;false;;;Исходное поле синтетической модели;53
+Inventory;transfer_out_qty;Отправлено перемещением;Остаток S03 при закрытии.;integer;штука;false;false;false;;;Исходное поле синтетической модели;0
+Inventory;count_adjustment_qty;Корректировка инвентаризации;"Разница факта и учета по инвентаризации; минус = недостача.";integer;штука;false;false;false;;;Исходное поле синтетической модели;0
+Inventory;closing_qty;Остаток на конец;Учетный остаток на конец месяца.;integer;штука;false;false;false;;;opening_qty + received_qty + transfer_in_qty + returned_qty - sold_qty - transfer_out_qty + count_adjustment_qty;30
+Inventory;reserved_qty;В резерве;Справочно: штуки, собранные под онлайн-заказы и еще не выданные. Входят в closing_qty.;integer;штука;false;false;false;;;Исходное поле синтетической модели;0
+Inventory;unit_cost;Себестоимость единицы;Product_Costs.unit_cost месяца.;money;рубль;false;false;false;;;Исходное поле синтетической модели;271.45
+Inventory;closing_value;Стоимость остатка;closing_qty x unit_cost.;money;рубль;false;false;false;;;closing_qty * unit_cost;8143.50
+Stock_Counts;count_id;ID строки;Уникальный код.;text;;false;true;false;;;Исходное поле синтетической модели;SC00001
+Stock_Counts;store_id;ID магазина;Магазин, к которому относится запись.;text;;false;false;true;Stores;store_id;Исходное поле синтетической модели;S01
+Stock_Counts;count_date;Дата;"Последний день квартала; для S03 день закрытия.";date;;false;false;false;;;Исходное поле синтетической модели;2023-09-30
+Stock_Counts;category_id;ID категории;Категория пересчитанных товаров.;text;;false;false;true;Categories;category_id;Исходное поле синтетической модели;K01
+Stock_Counts;book_qty;Учет;Учетный остаток до инвентаризации.;integer;штука;false;false;false;;;Исходное поле синтетической модели;269
+Stock_Counts;counted_qty;Факт;Фактически посчитано штук.;integer;штука;false;false;false;;;Исходное поле синтетической модели;263
+Stock_Counts;difference_qty;Разница;Факт минус учет.;integer;штука;false;false;false;;;counted_qty - book_qty;-6
+Stock_Counts;difference_value;Разница в рублях;"Разница x закупочная цена; минус = недостача. Сумма недостач равна пулу «Недостачи по инвентаризации».";money;рубль;false;false;false;;;Исходное поле синтетической модели;-1959.84
+Cost_Pools;pool_id;ID пула;Уникальный код.;text;;false;true;false;;;Исходное поле синтетической модели;CP00001
+Cost_Pools;period;Месяц;Месяц начисления.;date;;false;false;true;Calendar;date;Исходное поле синтетической модели;2023-07-01
+Cost_Pools;store_id;ID магазина;Магазин или S00 (офис и распределительный центр).;text;;false;false;true;Stores;store_id;Исходное поле синтетической модели;S01
+Cost_Pools;cost_category;Статья;Себестоимость товаров, недостачи, персонал магазина, аренда, открытие и закрытие магазинов, распределительный центр, эквайринг, онлайн-витрина, маркетинг и лояльность, управление.;text;;false;false;false;;;Исходное поле синтетической модели;Себестоимость товаров
+Cost_Pools;cost_layer;Слой;Себестоимость или операционные расходы.;text;;false;false;false;;;Исходное поле синтетической модели;Себестоимость
+Cost_Pools;allocation_method;Метод;"Учтено в строках продаж; прямое отнесение; ABC по мощности; ABC по фактической базе; не распределяется.";text;;false;false;false;;;Исходное поле синтетической модели;Учтено в строках продаж
+Cost_Pools;driver_name;Драйвер;"Драйвер ABC; пусто у других методов.";text;;true;false;false;;;Исходное поле синтетической модели;Минуты работы персонала
+Cost_Pools;driver_unit;Единица драйвера;Единица драйвера.;text;;true;false;false;;;Исходное поле синтетической модели;минута
+Cost_Pools;pool_amount;Сумма;Сумма за месяц. Пул «Себестоимость товаров» дублирует себестоимость строк чеков за вычетом сторно возвратов: не складывайте.;money;рубль;false;false;false;;;Исходное поле синтетической модели;4061715.98
+Cost_Pools;driver_capacity;Мощность;Для ABC по мощности: оплаченные минуты персонала магазина.;number;;true;false;false;;;Исходное поле синтетической модели;65472
+Cost_Pools;driver_total;Фактическая база;Сумма потребления драйвера.;number;;true;false;false;;;Исходное поле синтетической модели;53306.6
+Cost_Pools;allocation_rate;Ставка;ABC по мощности: pool_amount / max(driver_capacity, driver_total). ABC по факту: pool_amount / driver_total.;number;;true;false;false;;;Исходное поле синтетической модели;10.8181818181818
+Cost_Drivers;driver_id;ID драйвера;Уникальный код.;text;;false;true;false;;;Исходное поле синтетической модели;CD000001
+Cost_Drivers;pool_id;ID пула;Распределяемый пул ABC.;text;;false;false;true;Cost_Pools;pool_id;Исходное поле синтетической модели;CP00002
+Cost_Drivers;store_id;ID магазина;"Магазин-объект для пула распределительного центра; иначе пусто.";text;;true;false;true;Stores;store_id;Исходное поле синтетической модели;S01
+Cost_Drivers;channel_id;ID канала;"Канал-объект для пулов персонала и эквайринга; иначе пусто.";text;;true;false;true;Channels;channel_id;Исходное поле синтетической модели;CH01
+Cost_Drivers;driver_quantity;Потребление;Минуты, штуки или рубли.;number;;false;false;false;;;Исходное поле синтетической модели;51409.4907
+Cost_Allocations;allocation_id;ID аллокации;Уникальный код.;text;;false;true;false;;;Исходное поле синтетической модели;CA000001
+Cost_Allocations;pool_id;ID пула;Пул, сумма которого распределена.;text;;false;false;true;Cost_Pools;pool_id;Исходное поле синтетической модели;CP00002
+Cost_Allocations;driver_id;ID драйвера;Пусто у прямого отнесения, мощности и нераспределенного.;text;;true;false;true;Cost_Drivers;driver_id;Исходное поле синтетической модели;CD000001
+Cost_Allocations;store_id;ID магазина;Магазин, на который относится сумма (для пула распределительного центра: магазин-получатель).;text;;false;false;true;Stores;store_id;Исходное поле синтетической модели;S01
+Cost_Allocations;channel_id;ID канала;"Канал; пусто, если сумма не делится по каналам.";text;;true;false;true;Channels;channel_id;Исходное поле синтетической модели;CH01
+Cost_Allocations;allocation_status;Статус;Распределено, прямое отнесение, неиспользованная мощность, нераспределено.;text;;false;false;false;;;Исходное поле синтетической модели;Распределено
+Cost_Allocations;allocated_amount;Сумма;Округлено до копеек, остаток в последней строке. Сумма строк пула равна пулу.;money;рубль;false;false;false;;;Исходное поле синтетической модели;556157.22
+Expense_Payments;expense_payment_id;ID платежа;Уникальный код.;text;;false;true;false;;;Исходное поле синтетической модели;EP00001
+Expense_Payments;pool_id;ID пула;Оплачиваемый пул.;text;;false;false;true;Cost_Pools;pool_id;Исходное поле синтетической модели;CP00003
+Expense_Payments;payment_date;Дата;"Дата оплаты; после среза не входят.";date;;false;false;false;;;Исходное поле синтетической модели;2023-07-05
+Expense_Payments;amount;Сумма;Сумма оплаты расходов.;money;рубль;false;false;false;;;Исходное поле синтетической модели;824000.00
+Expense_Payments;payment_method;Способ;Банковский перевод или удержание банком (эквайринг).;text;;false;false;false;;;Исходное поле синтетической модели;Банковский перевод
+PL_Control;period;Месяц;Первый день месяца.;date;;false;true;true;Calendar;date;Исходное поле синтетической модели;2023-07-01
+PL_Control;store_id;ID магазина;Магазин или S00.;text;;false;true;true;Stores;store_id;Исходное поле синтетической модели;S00
+PL_Control;gross_sales;Продажи по прайсу;Receipt_Lines.gross_amount без тестовых чеков.;money;рубль;false;false;false;;;Исходное поле синтетической модели;0.00
+PL_Control;promo_discounts;Промо-скидки;Промо-скидки строк.;money;рубль;false;false;false;;;Исходное поле синтетической модели;0.00
+PL_Control;employee_discounts;Скидки сотрудникам;Скидки по картам сотрудников.;money;рубль;false;false;false;;;Исходное поле синтетической модели;0.00
+PL_Control;points_redeemed;Оплачено баллами;Баллы в оплату.;money;рубль;false;false;false;;;Исходное поле синтетической модели;0.00
+PL_Control;sales_net;Продажи после скидок;Сумма чеков без тестовых.;money;рубль;false;false;false;;;gross_sales - promo_discounts - employee_discounts - points_redeemed;0.00
+PL_Control;returns;Возвраты;Returns.refund_amount по дате возврата и магазину возврата.;money;рубль;false;false;false;;;Исходное поле синтетической модели;0.00
+PL_Control;net_revenue;Чистая выручка;Продажи после скидок минус возвраты.;money;рубль;false;false;false;;;sales_net - returns;0.00
+PL_Control;cogs_goods;Себестоимость товаров;Себестоимость строк минус сторно возвратов.;money;рубль;false;false;false;;;Исходное поле синтетической модели;0.00
+PL_Control;supplier_bonuses;Бонусы поставщиков;"Supplier_Bonuses.bonus_amount по месяцу начисления; уменьшают себестоимость.";money;рубль;false;false;false;;;Исходное поле синтетической модели;0.00
+PL_Control;shrinkage;Недостачи;Недостачи по инвентаризации.;money;рубль;false;false;false;;;Исходное поле синтетической модели;0.00
+PL_Control;gross_profit;Валовая прибыль;Выручка минус себестоимость плюс бонусы минус недостачи.;money;рубль;false;false;false;;;net_revenue - cogs_goods + supplier_bonuses - shrinkage;0.00
+PL_Control;staff_expenses;Персонал;Персонал магазина.;money;рубль;false;false;false;;;Исходное поле синтетической модели;0.00
+PL_Control;occupancy_expenses;Помещения;Аренда и содержание, открытие и закрытие магазинов.;money;рубль;false;false;false;;;Исходное поле синтетической модели;0.00
+PL_Control;logistics_expenses;Логистика;Распределительный центр и доставка в магазины.;money;рубль;false;false;false;;;Исходное поле синтетической модели;0.00
+PL_Control;acquiring_expenses;Эквайринг;Комиссия банка.;money;рубль;false;false;false;;;Исходное поле синтетической модели;0.00
+PL_Control;marketing_expenses;Маркетинг;Маркетинг, программа лояльности, онлайн-витрина.;money;рубль;false;false;false;;;Исходное поле синтетической модели;920000.00
+PL_Control;overhead_expenses;Управление;Управление сетью.;money;рубль;false;false;false;;;Исходное поле синтетической модели;1200000.00
+PL_Control;operating_expenses;Операционные расходы;Сумма шести групп.;money;рубль;false;false;false;;;Исходное поле синтетической модели;2120000.00
+PL_Control;operating_profit;Операционный результат;Валовая прибыль минус операционные расходы.;money;рубль;false;false;false;;;gross_profit - operating_expenses;-2120000.00
+PL_Control;unused_capacity_cost;Неиспользованная мощность;Справочно: часть расходов на персонал, не потребленная работой. Уже входит в staff_expenses.;money;рубль;false;false;false;;;Исходное поле синтетической модели;0.00
+Cash_Control;period;Месяц;Первый день месяца.;date;;false;true;true;Calendar;date;Исходное поле синтетической модели;2023-07-01
+Cash_Control;customer_receipts;Поступления от покупателей;Receipts.net_amount без тестовых чеков.;money;рубль;false;false;false;;;Исходное поле синтетической модели;23769358.40
+Cash_Control;customer_refunds;Возвраты покупателям;Returns.refund_amount.;money;рубль;false;false;false;;;Исходное поле синтетической модели;115716.10
+Cash_Control;supplier_payments;Оплаты поставщикам;Supplier_Payments.amount.;money;рубль;false;false;false;;;Исходное поле синтетической модели;0.00
+Cash_Control;supplier_bonus_receipts;Бонусы от поставщиков;Supplier_Bonuses.bonus_amount по settlement_date.;money;рубль;false;false;false;;;Исходное поле синтетической модели;0.00
+Cash_Control;expense_payments;Оплаты расходов;Expense_Payments.amount.;money;рубль;false;false;false;;;Исходное поле синтетической модели;4174537.03
+Cash_Control;net_operating_cash_flow;Денежный поток;Поступления минус возвраты минус оплаты плюс бонусы.;money;рубль;false;false;false;;;customer_receipts - customer_refunds - supplier_payments + supplier_bonus_receipts - expense_payments;19479105.27
+Cash_Control;inventory_value;Запасы;Inventory.closing_value. В августе 2024 не включает остаток S03 в пути в S07.;money;рубль;false;false;false;;;Исходное поле синтетической модели;12250712.44
+Cash_Control;supplier_payable_balance;Долг поставщикам;Поставки минус оплаты на конец месяца.;money;рубль;false;false;false;;;Исходное поле синтетической модели;11037835.15
+Cash_Control;supplier_bonus_receivable;Бонусы к получению;Начисленные, но не полученные бонусы.;money;рубль;false;false;false;;;Исходное поле синтетической модели;563714.20
+Cash_Control;expense_payable_balance;Неоплаченные расходы;Пулы операционных расходов минус оплаты.;money;рубль;false;false;false;;;Исходное поле синтетической модели;3429602.80
+Cash_Control;loyalty_points_balance;Баланс баллов;Сумма Loyalty_Events.points на конец месяца: обязательство перед покупателями (1 балл = 1 рубль). Начисление баллов не является расходом в PL_Control.;integer;балл;false;false;false;;;Исходное поле синтетической модели;3255399

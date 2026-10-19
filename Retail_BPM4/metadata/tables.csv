@@ -1,0 +1,31 @@
+﻿table_name;description_ru;grain_ru;primary_key;date_basis;row_count
+Calendar;Календарь для всех дат модели;Один календарный день;date;date;3652
+Stores;Магазины и офис;Один магазин или офис;store_id;open_date;8
+Store_Hours;Часы работы;Один магазин и один день недели;store_id + weekday_number;Нет даты события;49
+Channels;Каналы продаж;Один канал;channel_id;Нет даты события;2
+Categories;Категории товаров;Одна категория второго уровня;category_id;Нет даты события;31
+Suppliers;Поставщики;Один поставщик;supplier_id;Нет даты события;13
+Products;Товары;Один товар (SKU);sku_id;launch_date;1021
+Price_List;Регулярные цены;Одна цена товара за период;price_id;valid_from;3063
+Product_Costs;Закупочные цены по месяцам;Один товар и один месяц;sku_id + period;period;30630
+Promotions;Акции;Одна акция;promo_id;start_date;66
+Promo_Items;Товары в акциях;Один товар в одной акции;promo_item_id;Promotions.start_date;6784
+Customers;Карты покупателей;Одна карта лояльности, включая карты без покупок;customer_id;registration_date;27271
+Partner_Registry;Реестр партнеров;Одна партнерская карта;partner_id;valid_from;26
+Receipts;Чеки;Один чек продажи;receipt_id;receipt_datetime;477252
+Receipt_Lines;Строки чеков;Одна позиция чека;receipt_line_id;Receipts.receipt_datetime;880289
+Online_Orders;Онлайн-заказы с самовывозом;Один онлайн-заказ;online_order_id;order_datetime;14223
+Online_Order_Lines;Строки онлайн-заказов: спрос и исполнение;Одна товарная строка онлайн-заказа;online_order_line_id;Online_Orders.order_datetime;55824
+Returns;Возвраты покупателей;Одна позиция возврата;return_id;return_datetime;7847
+Loyalty_Events;События программы лояльности;Одно изменение баланса баллов одной карты;event_id;event_datetime;367625
+Supplier_Deliveries;Поставки от поставщиков;Одна поставка одного поставщика в один магазин;delivery_id;delivery_date;8463
+Supplier_Payments;Оплаты поставщикам;Одна оплата одной поставки;supplier_payment_id;payment_date;7982
+Supplier_Bonuses;Бонусы поставщиков;Один поставщик, один магазин и один месяц;bonus_id;period;1961
+Inventory;Остатки по месяцам;Один товар в одном магазине за месяц;inventory_id;period;150811
+Stock_Counts;Инвентаризации;Одна категория в одном магазине на дату инвентаризации;count_id;count_date;1767
+Cost_Pools;Себестоимость и операционные расходы;Один пул затрат за месяц;pool_id;period;820
+Cost_Drivers;Потребление драйверов;Один объект в одном пуле ABC;driver_id;Период Cost_Pools;794
+Cost_Allocations;Результат распределения;Одна аллокация, неиспользованная мощность или нераспределенный пул;allocation_id;Период Cost_Pools;1251
+Expense_Payments;Оплаты расходов;Один платеж по пулу;expense_payment_id;payment_date;783
+PL_Control;Независимые контрольные итоги прибыли;Один месяц и один магазин (S00 = офис и РЦ);period + store_id;period;191
+Cash_Control;Контроль денег, долгов и запасов;Один месяц;period;period;30

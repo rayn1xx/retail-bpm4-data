@@ -1,0 +1,35 @@
+﻿metric_id;metric_name_ru;calculation_rule_ru;date_basis_ru;population_ru;unit;limitation_ru
+sales_net;Продажи после скидок;SUM(Receipts.net_amount);receipt_datetime;Все чеки, кроме is_test = true;рубль;Оплата баллами уже уменьшила сумму чека
+net_revenue;Чистая выручка;sales_net - SUM(Returns.refund_amount);"receipt_datetime; return_datetime";Все чеки, кроме is_test = true;рубль;Возврат уменьшает выручку в дату и магазине возврата
+cogs_goods;Себестоимость товаров;SUM(Receipt_Lines.cost_amount) - SUM(Returns.cost_reversal);"receipt_datetime; return_datetime";Все чеки, кроме is_test = true;рубль;
+gross_profit;Валовая прибыль;net_revenue - cogs_goods + SUM(Supplier_Bonuses.bonus_amount) - недостачи по Stock_Counts;Месяц;Все магазины;рубль;Бонусы поставщиков относятся к месяцу начисления
+gross_margin;Валовая маржа;gross_profit / net_revenue;Месяц;Все магазины;доля;
+operating_profit;Операционный результат;gross_profit - SUM(Cost_Allocations.allocated_amount) слоя «Операционные расходы»;Cost_Pools.period;Компания;рубль;Налоги, проценты и амортизация не моделируются
+store_contribution;Вклад магазина;gross_profit магазина - операционные расходы магазина (включая распределенный РЦ);Месяц;S01-S07;рубль;Маркетинг, онлайн-витрина и управление остаются в S00
+checks;Чеки;COUNT(receipt_id);receipt_datetime;Все чеки, кроме is_test = true;чек;
+avg_check;Средний чек;sales_net / checks;receipt_datetime;Все чеки, кроме is_test = true;рубль;
+items_per_check;Штук в чеке;SUM(quantity) / checks;receipt_datetime;Все чеки, кроме is_test = true;штука;
+avg_item_price;Средняя цена штуки;sales_net / SUM(quantity);receipt_datetime;Все чеки, кроме is_test = true;рубль;
+lfl;Сопоставимые продажи (LFL);Рост sales_net магазинов, работавших весь сравниваемый период: S01, S02, S04, S06;receipt_datetime;Сопоставимые магазины;доля;S03/S07 (переезд) и S05 (новый) показывайте отдельно
+sales_per_sqm;Продажи на кв. м;sales_net / Stores.area_sqm / месяцы работы;receipt_datetime;Магазины;рубль на кв. м;
+promo_share;Доля продаж в акциях;SUM(net_amount строк с promo_id) / sales_net;receipt_datetime;Все чеки, кроме is_test = true;доля;
+promo_depth;Глубина промо;SUM(promo_discount) / SUM(gross_amount строк с promo_id);receipt_datetime;Все чеки, кроме is_test = true;доля;
+identified_share;Доля идентифицированных продаж;sales_net чеков с customer_id / sales_net;receipt_datetime;Все чеки, кроме is_test = true;доля;Покупки сотрудников и партнеров идентифицированы, но не B2C
+customers_active;Активные покупатели;COUNT(DISTINCT основная карта) с покупкой в периоде;receipt_datetime;"Чеки с картой, is_test = false, is_employee = false, is_b2b_or_partner = false; дубли объединены с основной картой (master_customer_id)";покупатель;
+new_customers;Новые покупатели;Покупатели, у которых первая видимая покупка в периоде и crm_first_purchase_date не раньше 01.07.2023;receipt_datetime;"Чеки с картой, is_test = false, is_employee = false, is_b2b_or_partner = false; дубли объединены с основной картой (master_customer_id)";покупатель;Первая видимая покупка старой базы не является новой
+repeat_rate;Доля с 2+ покупками;Покупатели с 2+ чеками / все покупатели периода;receipt_datetime;"Чеки с картой, is_test = false, is_employee = false, is_b2b_or_partner = false; дубли объединены с основной картой (master_customer_id)";доля;
+repeat_n;Повтор в N дней;Доля новых покупателей со второй покупкой в течение N = 30/60/90 дней после первой;receipt_datetime;"Чеки с картой, is_test = false, is_employee = false, is_b2b_or_partner = false; дубли объединены с основной картой (master_customer_id); только покупатели с первой покупкой не позже 31.12.2025 минус N дней";доля;Без полного окна наблюдения покупатель в знаменатель не входит
+days_to_second;Дней до второй покупки;Медиана дней между первой и второй покупкой;receipt_datetime;"Чеки с картой, is_test = false, is_employee = false, is_b2b_or_partner = false; дубли объединены с основной картой (master_customer_id)";день;
+rfm;RFM;Окно 12 месяцев до 31.12.2025. R: дни с последней покупки (R3 <= 30, R2 31-90, R1 > 90). F: чеки (F3 >= 6, F2 2-5, F1 = 1). M: сумма (M3 >= 12 000, M2 3 000-11 999, M1 < 3 000);receipt_datetime;"Чеки с картой, is_test = false, is_employee = false, is_b2b_or_partner = false; дубли объединены с основной картой (master_customer_id)";сегмент;Возвраты не являются покупками
+cohort_retention;Удержание когорты;Доля покупателей когорты (месяц первой покупки) с покупкой в месяце N;receipt_datetime;"Чеки с картой, is_test = false, is_employee = false, is_b2b_or_partner = false; дубли объединены с основной картой (master_customer_id); новые покупатели";доля;Ненаблюдаемые месяцы пустые, а не нулевые
+cohort_cum_revenue;Накопленная выручка когорты;Сумма sales_net покупателей когорты нарастающим итогом / размер когорты;receipt_datetime;"Чеки с картой, is_test = false, is_employee = false, is_b2b_or_partner = false; дубли объединены с основной картой (master_customer_id)";рубль;
+points_liability;Обязательство по баллам;SUM(Loyalty_Events.points) на дату;event_datetime;Все карты;балл;1 балл = 1 рубль
+burn_rate;Доля использованных баллов;Списано при оплате / начислено за период;event_datetime;Все карты;доля;
+fill_rate_online;Исполнение онлайн-заказов;SUM(fulfilled_qty) / SUM(ordered_qty);order_datetime;Онлайн-заказы;доля;
+oos_online;Дефицит в онлайн-заказах;SUM(cancelled_qty * unit_price) где cancel_reason = «Нет в наличии»;order_datetime;Онлайн-заказы;рубль;В магазине неисполненный спрос не фиксируется: падение продаж не доказывает дефицит
+supplier_fill;Исполнение поставщиком;SUM(delivered_qty) / SUM(ordered_qty);delivery_date;Supplier_Deliveries;доля;
+inventory_days;Дни запаса;Inventory.closing_value / (cogs_goods за 3 месяца / 91);Inventory.period;Магазины;день;
+shrinkage_rate;Доля недостач;Недостачи / net_revenue;Stock_Counts.count_date;Магазины;доля;
+return_rate;Доля возвратов;SUM(refund_amount) / sales_net;return_datetime;Все магазины;доля;
+lift;Лифт сочетанности;"P(A и B) / (P(A) x P(B)); корзина = чек, уровень = категория первого уровня";receipt_datetime;Все чеки, кроме is_test = true;коэффициент;Показывайте поддержку и уверенность в обе стороны
+abc_xyz;ABC и XYZ товаров;"ABC по выручке 80/15/5; XYZ по коэффициенту вариации месячных продаж: X <= 0,25, Y 0,25-0,5, Z > 0,5";receipt_datetime;Товары с продажами в 2025;класс;
